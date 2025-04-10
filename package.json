@@ -15,6 +15,7 @@
     "*.{scss,css,md,json}": "prettier --write"
   },
   "dependencies": {
+    "@nuxt/content": "^3.4.0",
     "@nuxt/eslint": "^1.3.0",
     "@nuxt/fonts": "^0.11.1",
     "@nuxt/icon": "^1.12.0",
@@ -27,8 +28,10 @@
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
+    "@alebat/default-alebat-config": "^0.8.0",
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
+    "@types/node": "^22.14.0",
     "eslint": "^9.24.0",
     "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-prettier": "^5.2.6",

@@ -1,0 +1,20 @@
+{
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "eslint.validate": ["vue", "javascript", "typescript"],
+  "prettier.singleQuote": true,
+  "prettier.semi": false,
+  "prettier.trailingComma": "none",
+  "css.validate": true,
+  "scss.validate": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "files.associations": {
+    "*.scss": "scss"
+  },
+  "volar.takeOverMode.enabled": true,
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+  "workbench.iconTheme": "material-icon-theme"
+}
