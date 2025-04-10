@@ -9,7 +9,7 @@ export default [
       parserOptions: {
         parser: await import('@typescript-eslint/parser'),
         ecmaVersion: 'latest',
-        sourceType: 'module'
+        sourceType: 'module',
       },
       globals: {
         window: 'readonly',
@@ -18,20 +18,19 @@ export default [
         defineNuxtConfig: 'readonly',
         definePageMeta: 'readonly',
         useRoute: 'readonly',
-        useState: 'readonly'
-      }
+        useState: 'readonly',
+      },
     },
     plugins: {
       vue: eslintPluginVue,
-      prettier: eslintPluginPrettier
+      prettier: eslintPluginPrettier,
     },
     rules: {
       'vue/multi-word-component-names': 'off',
       'vue/html-self-closing': 'error',
       'prettier/prettier': 'error',
       semi: ['error', 'never'],
-      quotes: ['error', 'single']
-    }
-  }
+      quotes: ['error', 'single'],
+    },
+  },
 ]
-
