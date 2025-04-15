@@ -21,20 +21,36 @@ const thumbnail = computed(() =>
 .stream-card {
   display: flex;
   flex-direction: column;
-  border: 1px solid #e2e2e2;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   overflow: hidden;
-  background: #fff;
+  background-color: #18181b;
+  border: 0.0625rem solid #2c2c2c;
+
   &__thumbnail {
     width: 100%;
-    height: auto;
+    height: 11.25rem;
+    object-fit: cover;
+    display: block;
+    background-color: #0e0e10;
   }
+
   &__info {
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
   }
+
   &__title {
-    font-weight: bold;
-    font-size: 1.2rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #ffffff;
+  }
+
+  &__game,
+  &__viewers {
+    font-size: 0.875rem;
+    color: #adadb8;
   }
 }
 </style>
