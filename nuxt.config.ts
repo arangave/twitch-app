@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import tsconfigPaths from 'vite-tsconfig-paths'
+
 export default defineNuxtConfig({
   devtools: { enabled: true },
   compatibilityDate: '2024-11-01',
@@ -10,4 +12,7 @@ export default defineNuxtConfig({
     '@nuxt/scripts',
     '@nuxt/test-utils',
   ],
+  vite: {
+    plugins: [tsconfigPaths()], // 👈 Aquí agregamos el plugin
+  },
 })

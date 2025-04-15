@@ -27,10 +27,22 @@ export default [
     },
     rules: {
       'vue/multi-word-component-names': 'off',
-      'vue/html-self-closing': 'error',
+      'vue/html-self-closing': [
+        'error',
+        {
+          html: {
+            void: 'any',
+            normal: 'always',
+            component: 'always',
+          },
+          svg: 'always',
+          math: 'always',
+        },
+      ],
       'prettier/prettier': 'error',
       semi: ['error', 'never'],
       quotes: ['error', 'single'],
-    },
+    }
+    
   },
 ]
