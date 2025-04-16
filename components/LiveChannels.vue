@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, ref, computed, onMounted } from 'vue'
+import { defineProps, ref, onMounted, computed } from 'vue'
 import { TwitchService } from '~/services/TwitchService'
 
 const props = defineProps<{ streams: any[]; collapsed: boolean }>()
@@ -8,30 +8,31 @@ let player: any = null
 const showAll = ref(false)
 
 const visibleStreams = computed(() => {
-  const maxItems = showAll.value
+  const limit = showAll.value
     ? props.streams.length
     : props.collapsed && window.innerWidth >= 1024
       ? 4
       : 3
-  return props.streams.slice(0, maxItems)
+  return props.streams.slice(0, limit)
 })
 
-const toggleShow = () => (showAll.value = !showAll.value)
+const toggleShow = () => {
+  showAll.value = !showAll.value
+}
 
 const loadPlayer = (user_login: string, id: string) => {
   hoveredId.value = id
   const embedDiv = document.getElementById(`twitch-player-${id}`)
-  if (embedDiv) {
-    embedDiv.innerHTML = ''
-    player = new (window as any).Twitch.Player(embedDiv.id, {
-      channel: user_login,
-      width: '100%',
-      height: '100%',
-      autoplay: true,
-      muted: true,
-      parent: [window.location.hostname],
-    })
-  }
+  if (!embedDiv) return
+  embedDiv.innerHTML = ''
+  player = new (window as any).Twitch.Player(embedDiv.id, {
+    channel: user_login,
+    width: '100%',
+    height: '100%',
+    autoplay: true,
+    muted: true,
+    parent: [window.location.hostname],
+  })
 }
 
 const unloadPlayer = () => {
@@ -63,9 +64,9 @@ onMounted(() => {
           @mouseenter="loadPlayer(stream.user_login, stream.id)"
           @mouseleave="unloadPlayer"
         >
-          <template v-if="hoveredId === stream.id"
-            ><div class="stream-card__iframe" :id="`twitch-player-${stream.id}`"
-          /></template>
+          <template v-if="hoveredId === stream.id">
+            <div class="stream-card__iframe" :id="`twitch-player-${stream.id}`" />
+          </template>
           <img
             v-else
             class="stream-card__preview"
@@ -93,8 +94,8 @@ onMounted(() => {
               />
             </p>
             <div class="stream-card__tags">
-              <span>{{ stream.game_name }}</span
-              ><span v-for="tag in stream.tags" :key="tag">{{ tag }}</span>
+              <span>{{ stream.game_name }}</span>
+              <span v-for="tag in stream.tags" :key="tag">{{ tag }}</span>
             </div>
           </div>
         </div>
@@ -113,6 +114,7 @@ onMounted(() => {
   flex-direction: column;
   gap: 1rem;
 }
+
 .live-title {
   font-size: 1.25rem;
   font-weight: 500;

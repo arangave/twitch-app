@@ -4,37 +4,51 @@ import { useRoute } from 'vue-router'
 import { VideoService } from '~/services/VideoService'
 
 const route = useRoute()
+const videoUrl = ref('')
+const videoDetails = ref<any>(null)
 const videoService = new VideoService()
 
-const streamDetails = ref(null)
-const videoUrl = ref('')
-
-// Cargar detalles del stream al montar la página
 onMounted(async () => {
-  const streamId = route.params.id as string
-  try {
-    const details = await videoService.getStreamDetails(streamId)
-    streamDetails.value = details
-    videoUrl.value = await videoService.getVideoUrl(details.user_name)
-  } catch (error) {
-    console.error('Error al cargar los detalles del stream:', error)
-  }
+  const streamId = route.params.id
+  videoDetails.value = await videoService.getStreamDetails(streamId)
+  videoUrl.value = await videoService.getVideoUrl(videoDetails.value.user_name)
 })
 </script>
 
 <template>
-  <div v-if="streamDetails">
-    <h1>{{ streamDetails.user_name }}</h1>
-    <video :src="videoUrl" autoplay controls />
-    <p>{{ streamDetails.title }}</p>
-    <p>{{ streamDetails.viewer_count }} espectadores</p>
+  <div class="video-page">
+    <Header />
+    <div class="video-container">
+      <iframe
+        :src="videoUrl"
+        width="100%"
+        height="600px"
+        frameborder="0"
+        allow="autoplay; encrypted-media"
+      />
+
+      <div v-if="videoDetails">
+        <h2>{{ videoDetails.title }}</h2>
+        <p>Stream by {{ videoDetails.user_name }}</p>
+        <p>{{ videoDetails.viewer_count }} viewers</p>
+      </div>
+    </div>
+    <Sidebar />
   </div>
-  <p v-else>Cargando...</p>
 </template>
 
-<style scoped lang="scss">
-video {
-  width: 100%;
-  height: auto;
+<style scoped>
+.video-page {
+  display: flex;
+  flex-direction: column;
+}
+
+.video-container {
+  flex: 1;
+  padding: 2rem;
+}
+
+iframe {
+  margin-bottom: 1rem;
 }
 </style>
