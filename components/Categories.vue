@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { defineProps, ref, onMounted, computed } from 'vue'
 import { TwitchService } from '~/services/TwitchService'
 
 const props = defineProps<{ collapsed: boolean }>()
@@ -8,8 +8,7 @@ const categories = ref([])
 const visibleCategories = computed(() =>
   categories.value.slice(0, props.collapsed ? 8 : 6),
 )
-
-const formatViewers = (count: number): string =>
+const formatViewers = (count: number) =>
   count >= 1000 ? `${Math.floor(count / 1000)}K viewers` : `${count} viewers`
 
 onMounted(async () => {
@@ -61,31 +60,26 @@ const featured = [
   flex-direction: column;
   gap: 1rem;
 }
-
 .categories-title {
   font-size: 1.25rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
   color: #fff;
-
   &--blue {
     color: #1e61cc;
     font-weight: 600;
   }
 }
-
 .grid-categories {
   display: grid;
   gap: 1.5rem;
   grid-template-columns: repeat(2, 1fr);
-
   @media (min-width: 48rem) {
     grid-template-columns: repeat(3, 1fr);
   }
   @media (min-width: 64rem) {
     grid-template-columns: repeat(6, 1fr);
   }
-
   &.collapsed {
     @media (min-width: 64rem) {
       grid-template-columns: repeat(8, 1fr);
@@ -101,18 +95,15 @@ const featured = [
   border-radius: 0.5rem;
   overflow: hidden;
   text-align: center;
-
   &__image {
     width: 100%;
     height: auto;
     object-fit: cover;
     border-bottom: 0.0625rem solid #2c2c2c;
   }
-
   &__info {
     padding: 0.5rem;
   }
-
   &__name {
     font-weight: 600;
     font-size: 0.9rem;
@@ -121,13 +112,11 @@ const featured = [
     overflow: hidden;
     text-overflow: ellipsis;
   }
-
   &__viewers {
     color: #aaa;
     font-size: 0.8rem;
     margin-top: -0.2rem;
   }
-
   &__tag {
     color: #eee;
     font-size: 0.75rem;
@@ -146,7 +135,6 @@ const featured = [
   justify-content: center;
   gap: 2rem;
   margin-top: 2rem;
-
   .featured-category {
     background-color: #1e61cc;
     padding: 0.75rem 1rem;
@@ -164,7 +152,6 @@ const featured = [
     transition:
       background-color 0.3s,
       transform 0.2s;
-
     span {
       flex: 1;
       margin-left: 0.5rem;
@@ -179,7 +166,6 @@ const featured = [
       position: absolute;
       right: -1rem;
     }
-
     &:hover {
       background-color: #1d3b77;
       transform: translateY(-0.125rem);
