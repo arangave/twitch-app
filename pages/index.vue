@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { TwitchService } from '~/services/TwitchService'
-import StreamCard from '~/components/StreamCard.vue'
+import LiveChannels from '~/components/LiveChannels.vue'
+import Categories from '~/components/Categories.vue' // ✅ Añadir
 import Header from '~/components/Header.vue'
 import Sidebar from '~/components/Sidebar.vue'
 
@@ -20,9 +21,9 @@ onMounted(async () => {
     <div :class="['layout', { collapsed }]">
       <Sidebar :collapsed="collapsed" @toggle="collapsed = !collapsed" />
       <main class="main-content">
-        <section class="grid-streams">
-          <StreamCard v-for="stream in streams" :key="stream.id" :stream="stream" />
-        </section>
+        <LiveChannels :streams="streams" :collapsed="collapsed" />
+        <Categories />
+        <!-- ✅ Aquí añades las categorías -->
       </main>
     </div>
   </div>
@@ -48,11 +49,5 @@ onMounted(async () => {
   overflow-y: auto;
   padding: 2rem;
   transition: all 0.3s ease;
-}
-
-.grid-streams {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(17.5rem, 1fr));
-  gap: 1.5rem;
 }
 </style>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, defineProps, defineEmits } from 'vue'
+import { defineProps, ref, onMounted } from 'vue'
 import { TwitchService } from '~/services/TwitchService'
 
 const props = defineProps<{ collapsed: boolean }>()
@@ -10,16 +10,11 @@ const twitchService = new TwitchService()
 
 onMounted(async () => {
   try {
-    const result = await twitchService.getRecommendedChannels(10)
-    channels.value = result
+    channels.value = await twitchService.getRecommendedChannels(10)
   } catch (error) {
     console.error('Error al cargar canales recomendados:', error)
   }
 })
-
-function formatViewers(count: number): string {
-  return count.toLocaleString('es-ES')
-}
 </script>
 
 <template>
@@ -34,6 +29,7 @@ function formatViewers(count: number): string {
         @click="emit('toggle')"
       />
     </div>
+
     <ul class="sidebar__list">
       <li v-for="channel in channels" :key="channel.id" class="sidebar__item">
         <img
@@ -41,13 +37,13 @@ function formatViewers(count: number): string {
           :alt="channel.user_name"
           class="sidebar__avatar"
         />
-        <div class="sidebar__info" v-if="!props.collapsed">
+        <div v-if="!props.collapsed" class="sidebar__info">
           <p class="sidebar__name">{{ channel.user_name }}</p>
           <p class="sidebar__category">{{ channel.game_name }}</p>
         </div>
-        <div class="sidebar__viewers" v-if="!props.collapsed">
+        <div v-if="!props.collapsed" class="sidebar__viewers">
           <span class="sidebar__live-dot" />
-          <span>{{ formatViewers(channel.viewer_count) }}</span>
+          <span>{{ channel.viewer_count.toLocaleString('es-ES') }}</span>
         </div>
       </li>
     </ul>
@@ -55,8 +51,6 @@ function formatViewers(count: number): string {
 </template>
 
 <style scoped lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&display=swap');
-
 .sidebar {
   width: 15rem;
   min-width: 15rem;
@@ -73,13 +67,11 @@ function formatViewers(count: number): string {
   &.collapsed {
     width: 2.7rem;
     min-width: 2.7rem;
-
     .sidebar__title,
     .sidebar__info,
     .sidebar__viewers {
       display: none;
     }
-
     .sidebar__item {
       justify-content: flex-start;
       padding: 0.3rem 0.4rem;
@@ -107,7 +99,6 @@ function formatViewers(count: number): string {
     opacity: 0.7;
     filter: brightness(0) invert(1);
     transition: filter 0.2s ease-in-out;
-
     &.rotated {
       transform: rotate(180deg);
       transition: transform 0.3s ease-in-out;
@@ -131,7 +122,6 @@ function formatViewers(count: number): string {
     border-radius: 0.25rem;
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
-
     &:hover {
       background-color: #1e61cc;
     }
@@ -149,7 +139,6 @@ function formatViewers(count: number): string {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-
     p {
       margin: 0;
       line-height: 1.1;
