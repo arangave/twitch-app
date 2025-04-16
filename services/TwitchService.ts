@@ -48,7 +48,6 @@ export class TwitchService {
   }
 
   async getTopCategoriesWithViewers(limit = 10) {
-    // 1. Obtener top juegos
     const gamesResponse = await fetch(
       `https://api.twitch.tv/helix/games/top?first=${limit}`,
       {
@@ -66,7 +65,6 @@ export class TwitchService {
     const gamesData = await gamesResponse.json()
     const games = gamesData.data
 
-    // 2. Obtener muchos streams (hasta 100)
     const streamsResponse = await fetch('https://api.twitch.tv/helix/streams?first=100', {
       headers: {
         'Client-ID': this.clientId,
@@ -81,7 +79,6 @@ export class TwitchService {
     const streamsData = await streamsResponse.json()
     const streams = streamsData.data
 
-    // 3. Agrupar viewers por game_id
     const viewerCountPerGame: Record<string, number> = {}
 
     streams.forEach((stream: any) => {
@@ -92,7 +89,6 @@ export class TwitchService {
       }
     })
 
-    // 4. Asignar una etiqueta general por juego (simulada)
     return games.map((game: any) => {
       const lowerName = game.name.toLowerCase()
 

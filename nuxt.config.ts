@@ -13,6 +13,6 @@ export default defineNuxtConfig({
     '@nuxt/test-utils',
   ],
   vite: {
-    plugins: [tsconfigPaths()], // 👈 Aquí agregamos el plugin
+    plugins: [tsconfigPaths()],
   },
 })
