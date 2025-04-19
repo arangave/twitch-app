@@ -1,18 +1,9 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { TwitchService } from '~/services/TwitchService'
-import LiveChannels from '~/components/LiveChannels.vue'
-import Categories from '~/components/Categories.vue'
 import Header from '~/components/Header.vue'
 import Sidebar from '~/components/Sidebar.vue'
+import { ref } from 'vue'
 
-const streams = ref([])
 const collapsed = ref(false)
-const twitchService = new TwitchService()
-
-onMounted(async () => {
-  streams.value = await twitchService.getStreams()
-})
 </script>
 
 <template>
@@ -21,8 +12,7 @@ onMounted(async () => {
     <div :class="['layout', { collapsed }]">
       <Sidebar :collapsed="collapsed" @toggle="collapsed = !collapsed" />
       <main class="main-content">
-        <LiveChannels :streams="streams" :collapsed="collapsed" />
-        <Categories />
+        <slot />
       </main>
     </div>
   </div>
@@ -34,7 +24,7 @@ onMounted(async () => {
   flex-direction: column;
   height: 100vh;
   background-color: #0e0e10;
-  color: #fff;
+  color: #070707;
 }
 
 .layout {

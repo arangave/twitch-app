@@ -1,6 +1,13 @@
+// Sidebar.vue
 <script setup lang="ts">
 import { defineProps, ref, onMounted } from 'vue'
 import { TwitchService } from '~/services/TwitchService'
+
+function formatViewers(count: number): string {
+  if (count >= 1000000) return `${(count / 1000000).toFixed(1)}M`
+  if (count >= 1000) return `${(count / 1000).toFixed(1)}K`
+  return count.toString()
+}
 
 const props = defineProps<{ collapsed: boolean }>()
 const emit = defineEmits(['toggle'])
@@ -31,20 +38,24 @@ onMounted(async () => {
     </div>
 
     <ul class="sidebar__list">
-      <li v-for="channel in channels" :key="channel.id" class="sidebar__item">
-        <img
-          :src="channel.thumbnail_url.replace('{width}', '32').replace('{height}', '32')"
-          :alt="channel.user_name"
-          class="sidebar__avatar"
-        />
-        <div v-if="!props.collapsed" class="sidebar__info">
-          <p class="sidebar__name">{{ channel.user_name }}</p>
-          <p class="sidebar__category">{{ channel.game_name }}</p>
-        </div>
-        <div v-if="!props.collapsed" class="sidebar__viewers">
-          <span class="sidebar__live-dot" />
-          <span>{{ channel.viewer_count.toLocaleString('es-ES') }}</span>
-        </div>
+      <li v-for="channel in channels" :key="channel.id">
+        <NuxtLink :to="`/${channel.user_login}`" class="sidebar__item">
+          <img
+            :src="
+              channel.thumbnail_url.replace('{width}', '32').replace('{height}', '32')
+            "
+            :alt="channel.user_name"
+            class="sidebar__avatar"
+          />
+          <div v-if="!props.collapsed" class="sidebar__info">
+            <p class="sidebar__name">{{ channel.user_name }}</p>
+            <p class="sidebar__category">{{ channel.game_name }}</p>
+          </div>
+          <div v-if="!props.collapsed" class="sidebar__viewers">
+            <span class="sidebar__live-dot" />
+            <span>{{ formatViewers(channel.viewer_count) }}</span>
+          </div>
+        </NuxtLink>
       </li>
     </ul>
   </aside>
@@ -57,7 +68,7 @@ onMounted(async () => {
   background-color: #0e0e10;
   padding: 1rem;
   color: #fff;
-  border-right: 0.0625rem solid #2c2c2c;
+  border-right: 0.0625rem solid #0e0e10;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -122,6 +133,9 @@ onMounted(async () => {
     border-radius: 0.25rem;
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
+    text-decoration: none;
+    color: inherit;
+
     &:hover {
       background-color: #1e61cc;
     }
