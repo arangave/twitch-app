@@ -59,23 +59,18 @@ onMounted(() => {
     </h2>
     <div :class="['grid-streams', { collapsed: props.collapsed }]">
       <div v-for="stream in visibleStreams" :key="stream.id" class="stream-card">
-        <div
-          class="stream-card__preview-wrapper"
-          @mouseenter="loadPlayer(stream.user_login, stream.id)"
-          @mouseleave="unloadPlayer"
-        >
-          <template v-if="hoveredId === stream.id">
-            <div class="stream-card__iframe" :id="`twitch-player-${stream.id}`" />
-          </template>
-          <img
-            v-else
-            class="stream-card__preview"
-            :src="
-              stream.thumbnail_url.replace('{width}', '320').replace('{height}', '180')
-            "
-            :alt="stream.title"
-          />
-        </div>
+        <NuxtLink :to="`/stream/${stream.id}`">
+          <div class="stream-card__preview-wrapper">
+            <img
+              class="stream-card__preview"
+              :src="
+                stream.thumbnail_url.replace('{width}', '320').replace('{height}', '180')
+              "
+              :alt="stream.title"
+            />
+          </div>
+        </NuxtLink>
+
         <div class="stream-card__info">
           <img
             :src="stream.thumbnail_url.replace('{width}', '32').replace('{height}', '32')"
@@ -85,8 +80,8 @@ onMounted(() => {
           <div class="stream-card__details">
             <p class="stream-card__title">{{ stream.title }}</p>
             <p class="stream-card__user">
-              {{ stream.user_name
-              }}<img
+              {{ stream.user_name }}
+              <img
                 v-if="stream.is_verified"
                 src="/iconos/verificado.png"
                 class="verified-icon"
