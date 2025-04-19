@@ -59,7 +59,7 @@ onMounted(() => {
     </h2>
     <div :class="['grid-streams', { collapsed: props.collapsed }]">
       <div v-for="stream in visibleStreams" :key="stream.id" class="stream-card">
-        <NuxtLink :to="`/stream/${stream.id}`">
+        <NuxtLink :to="`/stream/${stream.user_login}`">
           <div class="stream-card__preview-wrapper">
             <img
               class="stream-card__preview"

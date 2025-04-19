@@ -14,5 +14,8 @@ export default defineNuxtConfig({
   ],
   vite: {
     plugins: [tsconfigPaths()],
+    define: {
+      'process.env.DEBUG': false,
+    },
   },
 })
