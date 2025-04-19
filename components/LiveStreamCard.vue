@@ -144,7 +144,7 @@ onMounted(() => {
 }
 
 .stream-card {
-  background-color: #18181b;
+  background-color: #0e0e10;
   border-radius: 0.5rem;
   overflow: hidden;
   display: flex;
@@ -152,7 +152,6 @@ onMounted(() => {
   &__preview-wrapper {
     width: 100%;
     aspect-ratio: 16 / 9;
-    background-color: #18181b;
   }
   &__iframe,
   &__preview {

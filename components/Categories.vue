@@ -91,15 +91,24 @@ const featured = [
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  background-color: #18181b;
+  background-color: #0e0e10;
   border-radius: 0.5rem;
   overflow: hidden;
   text-align: center;
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 0 10px 2px #1e61cc;
+    transform: translateY(-2px);
+  }
+
   &__image {
     width: 100%;
     height: auto;
     object-fit: cover;
-    border-bottom: 0.0625rem solid #2c2c2c;
+    border-bottom: 0.0625rem solid #0e0e10;
   }
   &__info {
     padding: 0.5rem;

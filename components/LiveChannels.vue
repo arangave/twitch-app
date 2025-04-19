@@ -96,9 +96,13 @@ onMounted(() => {
         </div>
       </div>
     </div>
-    <div class="show-more" @click="toggleShow">
-      <span>{{ showAll ? 'Show less' : 'Show more' }}</span>
-      <img src="/iconos/Vector10.png" :class="{ rotated: showAll }" alt="Toggle" />
+    <div class="show-more-wrapper" @click="toggleShow">
+      <hr class="divider" />
+      <div class="show-more">
+        <span>{{ showAll ? 'Mostrar menos' : 'Mostrar más' }}</span>
+        <img src="/iconos/Vector10.png" :class="{ rotated: showAll }" alt="Toggle" />
+      </div>
+      <hr class="divider" />
     </div>
   </section>
 </template>
@@ -139,11 +143,19 @@ onMounted(() => {
 }
 
 .stream-card {
-  background-color: #18181b;
+  background-color: #0e0e10;
   border-radius: 0.5rem;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 0 10px 2px #1e61cc;
+    transform: translateY(-2px);
+  }
   &__preview-wrapper {
     width: 100%;
     aspect-ratio: 16 / 9;
@@ -216,6 +228,41 @@ onMounted(() => {
   font-size: 0.95rem;
   font-weight: 500;
   color: #1e61cc;
+  img {
+    width: 0.75rem;
+    height: 0.75rem;
+    transition: transform 0.3s ease;
+    filter: brightness(0) invert(1);
+  }
+}
+
+.rotated {
+  transform: rotate(180deg);
+}
+.show-more-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  cursor: pointer;
+}
+
+.divider {
+  flex: 1;
+  height: 0.05rem;
+  background-color: #555; // o #2c2c2c si quieres más suave
+  border: none;
+}
+
+.show-more {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1e61cc;
+  white-space: nowrap;
+
   img {
     width: 0.75rem;
     height: 0.75rem;

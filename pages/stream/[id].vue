@@ -117,12 +117,13 @@ onMounted(async () => {
           <div class="about">
             <p class="followers">
               {{
-                videoDetails.followers !== null
+                videoDetails.followers > 0
                   ? videoDetails.followers.toLocaleString()
                   : 'Seguidores no disponibles'
               }}
-              <span>seguidores</span>
+              <span v-if="videoDetails.followers > 0">seguidores</span>
             </p>
+
             <p class="description">
               {{ videoDetails.description || 'Sin descripción disponible.' }}
             </p>

@@ -31,7 +31,7 @@ const thumbnail = computed(() =>
     height: 11.25rem;
     object-fit: cover;
     display: block;
-    background-color: #0e0e10;
+    background-color: #18181b;
   }
 
   &__info {

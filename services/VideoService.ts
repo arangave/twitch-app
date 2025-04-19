@@ -45,7 +45,7 @@ export class VideoService {
       let followers = 0
       try {
         const followersRes = await fetch(
-          `https://api.twitch.tv/helix/users/follows?to_id=${user.id}`,
+          `https://api.twitch.tv/helix/channels/followers?broadcaster_id=${user.id}`,
           { headers: this.headers },
         )
         const followersData = await followersRes.json()

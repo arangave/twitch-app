@@ -34,7 +34,7 @@ onMounted(async () => {
   flex-direction: column;
   height: 100vh;
   background-color: #0e0e10;
-  color: #070707;
+  color: #fff;
 }
 
 .layout {

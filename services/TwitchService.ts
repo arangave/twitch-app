@@ -4,12 +4,16 @@ export class TwitchService {
 
   private verifiedUsers = ['midudev', 'xqc', 'ibai', 'auronplay', 'elrubius']
 
+  private get headers() {
+    return {
+      'Client-ID': this.clientId,
+      Authorization: `Bearer ${this.accessToken}`,
+    }
+  }
+
   async getStreams(limit = 20) {
-    const response = await fetch(`https://api.twitch.tv/helix/streams?first=${limit}`, {
-      headers: {
-        'Client-ID': this.clientId,
-        Authorization: `Bearer ${this.accessToken}`,
-      },
+    const response = await fetch('https://api.twitch.tv/helix/streams?first=100', {
+      headers: this.headers,
     })
 
     if (!response.ok) {
@@ -18,20 +22,23 @@ export class TwitchService {
 
     const data = await response.json()
 
-    return data.data.map((stream: any) => ({
-      ...stream,
-      user_login: stream.user_login || stream.user_name?.toLowerCase() || '',
-      is_verified: this.verifiedUsers.includes(stream.user_name?.toLowerCase() || ''),
-      tags: ['Español', 'DropsActivados'],
-    }))
+    return data.data
+      .filter((s: any) => s.language === 'es')
+      .sort((a: any, b: any) => b.viewer_count - a.viewer_count)
+      .slice(0, limit)
+      .map((stream: any) => {
+        return {
+          ...stream,
+          user_login: stream.user_login || stream.user_name?.toLowerCase() || '',
+          is_verified: this.verifiedUsers.includes(stream.user_name?.toLowerCase() || ''),
+          tags: ['Español', 'DropsActivados'],
+        }
+      })
   }
 
   async getRecommendedChannels(limit = 10) {
     const response = await fetch(`https://api.twitch.tv/helix/streams?first=${limit}`, {
-      headers: {
-        'Client-ID': this.clientId,
-        Authorization: `Bearer ${this.accessToken}`,
-      },
+      headers: this.headers,
     })
 
     if (!response.ok) {
@@ -47,14 +54,11 @@ export class TwitchService {
     }))
   }
 
-  async getTopCategoriesWithViewers(limit = 10) {
+  async getTopCategoriesWithViewers(limit = 20) {
     const gamesResponse = await fetch(
       `https://api.twitch.tv/helix/games/top?first=${limit}`,
       {
-        headers: {
-          'Client-ID': this.clientId,
-          Authorization: `Bearer ${this.accessToken}`,
-        },
+        headers: this.headers,
       },
     )
 
@@ -66,10 +70,7 @@ export class TwitchService {
     const games = gamesData.data
 
     const streamsResponse = await fetch('https://api.twitch.tv/helix/streams?first=100', {
-      headers: {
-        'Client-ID': this.clientId,
-        Authorization: `Bearer ${this.accessToken}`,
-      },
+      headers: this.headers,
     })
 
     if (!streamsResponse.ok) {
@@ -91,7 +92,6 @@ export class TwitchService {
 
     return games.map((game: any) => {
       const lowerName = game.name.toLowerCase()
-
       let tag = 'Gaming'
       if (lowerName.includes('chat')) tag = 'IRL'
       else if (lowerName.includes('simulator')) tag = 'Simulation'
@@ -109,5 +109,41 @@ export class TwitchService {
         tag,
       }
     })
+  }
+
+  // ✅ Método adicional para obtener detalles del canal
+  async getStreamDetails(userLogin: string) {
+    try {
+      const userRes = await fetch(
+        `https://api.twitch.tv/helix/users?login=${userLogin}`,
+        { headers: this.headers },
+      )
+      const userData = await userRes.json()
+      const user = userData.data?.[0]
+      if (!user) throw new Error('Usuario no encontrado')
+
+      const streamRes = await fetch(
+        `https://api.twitch.tv/helix/streams?user_id=${user.id}`,
+        { headers: this.headers },
+      )
+      const streamData = await streamRes.json()
+      const stream = streamData.data?.[0] || {}
+
+      const followersRes = await fetch(
+        `https://api.twitch.tv/helix/users/follows?to_id=${user.id}`,
+        { headers: this.headers },
+      )
+      const followersData = await followersRes.json()
+      const followers = followersData.total ?? 0
+
+      return {
+        ...user,
+        ...stream,
+        followers,
+      }
+    } catch (error) {
+      console.error('Error al obtener detalles del canal:', error)
+      return null
+    }
   }
 }
