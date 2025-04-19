@@ -14,11 +14,16 @@
     </div>
 
     <div class="header__right">
-      <img
-        :src="`/iconos/notification.png`"
-        alt="Notifications"
-        class="header__icon header__notification"
-      />
+      <div class="header__notification-wrapper">
+        <img
+          :src="`/iconos/notification.png`"
+          alt="Notifications"
+          class="header__icon header__notification"
+        />
+        <span v-if="notificationCount > 0" class="notification-badge">
+          {{ notificationCount }}
+        </span>
+      </div>
       <button class="header__login">Log in</button>
       <button class="header__signup">Sign up</button>
       <img
@@ -30,7 +35,22 @@
   </header>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import { TwitchService } from '~/services/TwitchService'
+
+const notificationCount = ref(0)
+const twitchService = new TwitchService()
+
+onMounted(async () => {
+  try {
+    const streams = await twitchService.getStreams()
+    notificationCount.value = streams.length
+  } catch (error) {
+    console.error('Error al cargar notificaciones:', error)
+  }
+})
+</script>
 
 <style scoped lang="scss">
 .header {
@@ -39,7 +59,7 @@
   align-items: center;
   background-color: #18181b;
   padding: 0.75rem 1.5rem;
-  border-bottom: 1px solid #2c2c2c;
+  border-bottom: 1px solid #18181b;
 
   &__left,
   &__right {
@@ -129,15 +149,29 @@
     border-color: #1e61cc;
   }
 
+  &__notification-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+
   &__notification {
     width: 20px;
     height: 20px;
     opacity: 0.8;
     transition: filter 0.2s ease-in-out;
-
-    &:hover {
-      filter: brightness(0) saturate(100%) sepia(100%) hue-rotate(25deg) brightness(1.2);
-    }
   }
+}
+
+.notification-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background-color: #e91916;
+  color: white;
+  font-size: 0.5rem; // más pequeño
+  font-weight: bold;
+  padding: 0.1rem 0.3rem; // menos relleno
+  border-radius: 9999px;
+  line-height: 1;
 }
 </style>

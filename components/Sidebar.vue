@@ -2,6 +2,12 @@
 import { defineProps, ref, onMounted } from 'vue'
 import { TwitchService } from '~/services/TwitchService'
 
+function formatViewers(count: number): string {
+  if (count >= 1000000) return `${(count / 1000000).toFixed(1)}M`
+  if (count >= 1000) return `${(count / 1000).toFixed(1)}K`
+  return count.toString()
+}
+
 const props = defineProps<{ collapsed: boolean }>()
 const emit = defineEmits(['toggle'])
 
@@ -43,7 +49,7 @@ onMounted(async () => {
         </div>
         <div v-if="!props.collapsed" class="sidebar__viewers">
           <span class="sidebar__live-dot" />
-          <span>{{ channel.viewer_count.toLocaleString('es-ES') }}</span>
+          <span>{{ formatViewers(channel.viewer_count) }}</span>
         </div>
       </li>
     </ul>

@@ -152,7 +152,7 @@ onMounted(() => {
   &__preview-wrapper {
     width: 100%;
     aspect-ratio: 16 / 9;
-    background-color: #000;
+    background-color: #18181b;
   }
   &__iframe,
   &__preview {

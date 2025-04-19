@@ -13,9 +13,7 @@ export class VideoService {
     try {
       const userRes = await fetch(
         `https://api.twitch.tv/helix/users?login=${userLogin}`,
-        {
-          headers: this.headers,
-        },
+        { headers: this.headers },
       )
       const userData = await userRes.json()
       const user = userData.data?.[0]
@@ -23,30 +21,38 @@ export class VideoService {
 
       const streamRes = await fetch(
         `https://api.twitch.tv/helix/streams?user_id=${user.id}`,
-        {
-          headers: this.headers,
-        },
+        { headers: this.headers },
       )
       const streamData = await streamRes.json()
       const stream = streamData.data?.[0] || {}
 
       let tags: string[] = []
-      if (stream.id) {
-        const tagsRes = await fetch(
-          `https://api.twitch.tv/helix/streams/tags?broadcaster_id=${user.id}`,
-          { headers: this.headers },
-        )
-        const tagsData = await tagsRes.json()
-        tags =
-          tagsData.data?.map((tag: any) => tag.localization_names?.es || tag.tag_id) || []
+      try {
+        if (stream.id) {
+          const tagsRes = await fetch(
+            `https://api.twitch.tv/helix/streams/tags?broadcaster_id=${user.id}`,
+            { headers: this.headers },
+          )
+          const tagsData = await tagsRes.json()
+          tags =
+            tagsData.data?.map((tag: any) => tag.localization_names?.es || tag.tag_id) ||
+            []
+        }
+      } catch {
+        console.warn('No se pudieron obtener etiquetas (Twitch API cambio)')
       }
 
-      const followersRes = await fetch(
-        `https://api.twitch.tv/helix/users/follows?to_id=${user.id}`,
-        { headers: this.headers },
-      )
-      const followersData = await followersRes.json()
-      const followers = followersData.total || 0
+      let followers = 0
+      try {
+        const followersRes = await fetch(
+          `https://api.twitch.tv/helix/users/follows?to_id=${user.id}`,
+          { headers: this.headers },
+        )
+        const followersData = await followersRes.json()
+        followers = followersData.total || 0
+      } catch {
+        console.warn('No se pudieron obtener seguidores')
+      }
 
       return {
         ...stream,
@@ -55,7 +61,7 @@ export class VideoService {
         followers,
       }
     } catch (error) {
-      console.error(' Error al obtener los detalles del stream:', error)
+      console.error('❌ Error al obtener los detalles del stream:', error)
       return null
     }
   }
