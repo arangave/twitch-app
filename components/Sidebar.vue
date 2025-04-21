@@ -65,7 +65,7 @@ onMounted(async () => {
 .sidebar {
   width: 15rem;
   min-width: 15rem;
-  background-color: #0e0e10;
+  background: #0e0e10;
   padding: 1rem;
   color: #fff;
   border-right: 0.0625rem solid #0e0e10;
@@ -73,11 +73,12 @@ onMounted(async () => {
   flex-direction: column;
   overflow-y: auto;
   font-family: 'Rubik', sans-serif;
-  transition: width 0.3s ease;
+  transition: width 0.3s;
 
   &.collapsed {
     width: 2.7rem;
     min-width: 2.7rem;
+
     .sidebar__title,
     .sidebar__info,
     .sidebar__viewers {
@@ -95,7 +96,6 @@ onMounted(async () => {
     align-items: center;
     margin: 0 0 1.25rem 0.75rem;
   }
-
   &__title {
     font-size: 0.85rem;
     font-weight: 600;
@@ -109,10 +109,11 @@ onMounted(async () => {
     cursor: pointer;
     opacity: 0.7;
     filter: brightness(0) invert(1);
-    transition: filter 0.2s ease-in-out;
+    transition: filter 0.2s;
+
     &.rotated {
       transform: rotate(180deg);
-      transition: transform 0.3s ease-in-out;
+      transition: transform 0.3s;
     }
   }
 
@@ -132,12 +133,12 @@ onMounted(async () => {
     width: 100%;
     border-radius: 0.25rem;
     cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
+    transition: background 0.2s;
     text-decoration: none;
     color: inherit;
 
     &:hover {
-      background-color: #1e61cc;
+      background: #1e61cc;
     }
   }
 
@@ -153,28 +154,29 @@ onMounted(async () => {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+
     p {
       margin: 0;
       line-height: 1.1;
     }
   }
 
-  &__name {
-    font-weight: 600;
-    font-size: 0.8125rem;
-    color: #fff;
+  &__name,
+  &__category {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
+  &__name {
+    font-weight: 600;
+    font-size: 0.8125rem;
+    color: #fff;
+  }
   &__category {
     font-size: 0.75rem;
     font-weight: 400;
     color: #adadb8;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   &__viewers {
@@ -191,7 +193,7 @@ onMounted(async () => {
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 50%;
-    background-color: #e91916;
+    background: #e91916;
     border: 0.125rem solid #0e0e10;
   }
 }

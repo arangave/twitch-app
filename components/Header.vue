@@ -51,34 +51,29 @@ onMounted(async () => {
   }
 })
 </script>
-
 <style scoped lang="scss">
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #18181b;
+  background: #18181b;
   padding: 0.75rem 1.5rem;
-  border-bottom: 1px solid #18181b;
+  border-bottom: 0.0625rem solid #18181b;
 
   &__left,
   &__right {
     display: flex;
     align-items: center;
   }
-
   &__left {
     gap: 0.5rem;
   }
-
   &__right {
     gap: 0.75rem;
   }
-
   &__logo {
-    height: 24px;
+    height: 1.5rem;
   }
-
   &__title {
     font-weight: bold;
     color: #fff;
@@ -86,21 +81,19 @@ onMounted(async () => {
     text-decoration: none;
     cursor: pointer;
   }
-
   &__more {
-    width: 16px;
-    height: 16px;
-    margin-left: 6px;
+    width: 1rem;
+    height: 1rem;
+    margin-left: 0.375rem;
     opacity: 0.7;
   }
-
   &__search {
     display: flex;
     align-items: center;
     background: #27272a;
-    border-radius: 4px;
+    border-radius: 0.25rem;
     overflow: hidden;
-    width: 300px;
+    width: 18.75rem;
 
     input {
       background: transparent;
@@ -118,14 +111,15 @@ onMounted(async () => {
       cursor: pointer;
     }
   }
-
-  &__icon {
-    width: 20px;
-    height: 20px;
+  &__icon,
+  &__notification {
+    width: 1.25rem;
+    height: 1.25rem;
     filter: brightness(0) invert(1);
     cursor: pointer;
+    opacity: 0.8;
+    transition: filter 0.2s;
   }
-
   &__profile {
     border-radius: 50%;
   }
@@ -133,19 +127,18 @@ onMounted(async () => {
   &__login,
   &__signup {
     background: none;
-    border: 1px solid #1e61cc;
+    border: 0.0625rem solid #1e61cc;
     color: #fff;
     padding: 0.4rem 1rem;
-    border-radius: 4px;
+    border-radius: 0.25rem;
     cursor: pointer;
-
     &:hover {
-      background-color: #1e61cc;
+      background: #1e61cc;
     }
   }
 
   &__signup {
-    background-color: #1e61cc;
+    background: #1e61cc;
     border-color: #1e61cc;
   }
 
@@ -153,24 +146,17 @@ onMounted(async () => {
     position: relative;
     display: inline-block;
   }
-
-  &__notification {
-    width: 20px;
-    height: 20px;
-    opacity: 0.8;
-    transition: filter 0.2s ease-in-out;
-  }
 }
 
 .notification-badge {
   position: absolute;
-  top: -6px;
-  right: -6px;
-  background-color: #e91916;
-  color: white;
-  font-size: 0.5rem; // más pequeño
+  top: -0.375rem;
+  right: -0.375rem;
+  background: #e91916;
+  color: #fff;
+  font-size: 0.5rem;
   font-weight: bold;
-  padding: 0.1rem 0.3rem; // menos relleno
+  padding: 0.1rem 0.3rem;
   border-radius: 9999px;
   line-height: 1;
 }

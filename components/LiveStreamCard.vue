@@ -114,7 +114,6 @@ onMounted(() => {
   flex-direction: column;
   gap: 1rem;
 }
-
 .live-title {
   font-size: 1.25rem;
   font-weight: 500;
@@ -125,7 +124,6 @@ onMounted(() => {
     font-weight: 600;
   }
 }
-
 .grid-streams {
   display: grid;
   gap: 1.5rem;
@@ -142,9 +140,8 @@ onMounted(() => {
     }
   }
 }
-
 .stream-card {
-  background-color: #0e0e10;
+  background: #0e0e10;
   border-radius: 0.5rem;
   overflow: hidden;
   display: flex;
@@ -201,7 +198,7 @@ onMounted(() => {
     flex-wrap: wrap;
     gap: 0.4rem;
     span {
-      background-color: #2c2c2c;
+      background: #2c2c2c;
       padding: 0.2rem 0.5rem;
       border-radius: 1rem;
       font-size: 0.75rem;
@@ -209,7 +206,6 @@ onMounted(() => {
     }
   }
 }
-
 .show-more {
   margin-top: 1.5rem;
   display: flex;
@@ -227,7 +223,6 @@ onMounted(() => {
     filter: brightness(0) invert(1);
   }
 }
-
 .rotated {
   transform: rotate(180deg);
 }

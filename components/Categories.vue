@@ -86,24 +86,21 @@ const featured = [
     }
   }
 }
-
 .category-card {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  background-color: #0e0e10;
+  background: #0e0e10;
   border-radius: 0.5rem;
   overflow: hidden;
   text-align: center;
   transition:
-    box-shadow 0.3s ease,
-    transform 0.3s ease;
-
+    box-shadow 0.3s,
+    transform 0.3s;
   &:hover {
-    box-shadow: 0 0 10px 2px #1e61cc;
-    transform: translateY(-2px);
+    box-shadow: 0 0 0.625rem 0.125rem #1e61cc;
+    transform: translateY(-0.125rem);
   }
-
   &__image {
     width: 100%;
     height: auto;
@@ -129,7 +126,7 @@ const featured = [
   &__tag {
     color: #eee;
     font-size: 0.75rem;
-    background-color: #2c2c2c;
+    background: #2c2c2c;
     padding: 0.25rem 0.5rem;
     border-radius: 1rem;
     margin-top: 0.5rem;
@@ -137,7 +134,6 @@ const featured = [
     text-align: center;
   }
 }
-
 .featured-categories {
   display: flex;
   flex-wrap: wrap;
@@ -145,7 +141,7 @@ const featured = [
   gap: 2rem;
   margin-top: 2rem;
   .featured-category {
-    background-color: #1e61cc;
+    background: #1e61cc;
     padding: 0.75rem 1rem;
     border-radius: 0.65rem;
     color: white;
@@ -176,7 +172,7 @@ const featured = [
       right: -1rem;
     }
     &:hover {
-      background-color: #1d3b77;
+      background: #1d3b77;
       transform: translateY(-0.125rem);
     }
   }

@@ -61,7 +61,7 @@ export class VideoService {
         followers,
       }
     } catch (error) {
-      console.error('❌ Error al obtener los detalles del stream:', error)
+      console.error(' Error al obtener los detalles del stream:', error)
       return null
     }
   }

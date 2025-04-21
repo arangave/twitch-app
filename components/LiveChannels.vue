@@ -113,7 +113,6 @@ onMounted(() => {
   flex-direction: column;
   gap: 1rem;
 }
-
 .live-title {
   font-size: 1.25rem;
   font-weight: 500;
@@ -124,7 +123,6 @@ onMounted(() => {
     font-weight: 600;
   }
 }
-
 .grid-streams {
   display: grid;
   gap: 1.5rem;
@@ -141,9 +139,8 @@ onMounted(() => {
     }
   }
 }
-
 .stream-card {
-  background-color: #0e0e10;
+  background: #0e0e10;
   border-radius: 0.5rem;
   overflow: hidden;
   display: flex;
@@ -151,15 +148,14 @@ onMounted(() => {
   transition:
     box-shadow 0.3s ease,
     transform 0.3s ease;
-
   &:hover {
     box-shadow: 0 0 10px 2px #1e61cc;
     transform: translateY(-2px);
   }
   &__preview-wrapper {
     width: 100%;
-    aspect-ratio: 16 / 9;
-    background-color: #000;
+    aspect-ratio: 16/9;
+    background: #000;
   }
   &__iframe,
   &__preview {
@@ -209,35 +205,13 @@ onMounted(() => {
     flex-wrap: wrap;
     gap: 0.4rem;
     span {
-      background-color: #2c2c2c;
+      background: #2c2c2c;
       padding: 0.2rem 0.5rem;
       border-radius: 1rem;
       font-size: 0.75rem;
       color: #eee;
     }
   }
-}
-
-.show-more {
-  margin-top: 1.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.4rem;
-  cursor: pointer;
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: #1e61cc;
-  img {
-    width: 0.75rem;
-    height: 0.75rem;
-    transition: transform 0.3s ease;
-    filter: brightness(0) invert(1);
-  }
-}
-
-.rotated {
-  transform: rotate(180deg);
 }
 .show-more-wrapper {
   display: flex;
@@ -246,14 +220,12 @@ onMounted(() => {
   margin-top: 2rem;
   cursor: pointer;
 }
-
 .divider {
   flex: 1;
   height: 0.05rem;
-  background-color: #555; // o #2c2c2c si quieres más suave
+  background: #555;
   border: none;
 }
-
 .show-more {
   display: flex;
   align-items: center;
@@ -262,7 +234,6 @@ onMounted(() => {
   font-weight: 600;
   color: #1e61cc;
   white-space: nowrap;
-
   img {
     width: 0.75rem;
     height: 0.75rem;
@@ -270,7 +241,6 @@ onMounted(() => {
     filter: brightness(0) invert(1);
   }
 }
-
 .rotated {
   transform: rotate(180deg);
 }
