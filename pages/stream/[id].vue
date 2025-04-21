@@ -4,18 +4,10 @@ import { useRoute } from 'vue-router'
 import { VideoService } from '~/services/VideoService'
 import DefaultLayout from '~/layouts/DefaultLayout.vue'
 import {
-  Heart,
-  Star,
-  MoreVertical,
-  Clock3,
-  User,
-  Youtube,
-  Instagram,
-  Twitter,
-  ArrowUpRightFromSquare,
-  Music2 as TiktokIcon,
+  Heart,Star, MoreVertical,Clock3,User,Youtube,Instagram,Twitter,ArrowUpRightFromSquare,Music2 as TiktokIcon,
 } from 'lucide-vue-next'
 
+const domain = window.location.hostname
 const route = useRoute()
 const streamId = route.params.id
 const videoDetails = ref<any>(null)
@@ -44,7 +36,7 @@ onMounted(async () => {
         <div class="main-content">
           <div class="video-section">
             <iframe
-            :src="`https://player.twitch.tv/?channel=${videoDetails.user_login}&autoplay=true&parent=apptwitch.netlify.app`"
+            ::src="`https://player.twitch.tv/?channel=${videoDetails.user_login}&autoplay=true&parent=${domain}`"
             frameborder="0"
             allowfullscreen
             width="100%"
@@ -152,7 +144,7 @@ onMounted(async () => {
         </div>
         <div class="chat-section">
           <iframe
-          :src="`https://www.twitch.tv/embed/${videoDetails.user_login}/chat?darkpopout&parent=apptwitch.netlify.app`"
+          :src="`https://www.twitch.tv/embed/${videoDetails.user_login}/chat?darkpopout&parent=${domain}`"
           frameborder="0"
           scrolling="yes"
           width="100%"
