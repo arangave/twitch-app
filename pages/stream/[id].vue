@@ -4,18 +4,10 @@ import { useRoute } from 'vue-router'
 import { VideoService } from '~/services/VideoService'
 import DefaultLayout from '~/layouts/DefaultLayout.vue'
 import {
-  Heart,
-  Star,
-  MoreVertical,
-  Clock3,
-  User,
-  Youtube,
-  Instagram,
-  Twitter,
-  ArrowUpRightFromSquare,
-  Music2 as TiktokIcon,
+  Heart,Star, MoreVertical,Clock3,User,Youtube,Instagram,Twitter,ArrowUpRightFromSquare,Music2 as TiktokIcon,
 } from 'lucide-vue-next'
 
+const domain = window.location.hostname
 const route = useRoute()
 const streamId = route.params.id
 const videoDetails = ref<any>(null)
@@ -44,12 +36,13 @@ onMounted(async () => {
         <div class="main-content">
           <div class="video-section">
             <iframe
-              :src="`https://player.twitch.tv/?channel=${videoDetails.user_login}&autoplay=true&parent=localhost`"
-              frameborder="0"
-              allowfullscreen
-              width="100%"
-              height="100%"
-            />
+            ::src="`https://player.twitch.tv/?channel=${videoDetails.user_login}&autoplay=true&parent=${domain}`"
+            frameborder="0"
+            allowfullscreen
+            width="100%"
+            height="100%"
+          />
+
           </div>
           <div class="stream-header">
             <div class="avatar-wrapper">
@@ -151,12 +144,13 @@ onMounted(async () => {
         </div>
         <div class="chat-section">
           <iframe
-            :src="`https://www.twitch.tv/embed/${videoDetails.user_login}/chat?darkpopout&parent=localhost`"
-            frameborder="0"
-            scrolling="yes"
-            width="100%"
-            height="100%"
-          />
+          :src="`https://www.twitch.tv/embed/${videoDetails.user_login}/chat?darkpopout&parent=${domain}`"
+          frameborder="0"
+          scrolling="yes"
+          width="100%"
+          height="100%"
+        />
+
         </div>
       </div>
     </div>
