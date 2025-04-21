@@ -44,12 +44,13 @@ onMounted(async () => {
         <div class="main-content">
           <div class="video-section">
             <iframe
-              :src="`https://player.twitch.tv/?channel=${videoDetails.user_login}&autoplay=true&parent=localhost`"
-              frameborder="0"
-              allowfullscreen
-              width="100%"
-              height="100%"
-            />
+            :src="`https://player.twitch.tv/?channel=${videoDetails.user_login}&autoplay=true&parent=apptwitch.netlify.app`"
+            frameborder="0"
+            allowfullscreen
+            width="100%"
+            height="100%"
+          />
+
           </div>
           <div class="stream-header">
             <div class="avatar-wrapper">
@@ -151,12 +152,13 @@ onMounted(async () => {
         </div>
         <div class="chat-section">
           <iframe
-            :src="`https://www.twitch.tv/embed/${videoDetails.user_login}/chat?darkpopout&parent=localhost`"
-            frameborder="0"
-            scrolling="yes"
-            width="100%"
-            height="100%"
-          />
+          :src="`https://www.twitch.tv/embed/${videoDetails.user_login}/chat?darkpopout&parent=apptwitch.netlify.app`"
+          frameborder="0"
+          scrolling="yes"
+          width="100%"
+          height="100%"
+        />
+
         </div>
       </div>
     </div>
