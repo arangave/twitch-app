@@ -11,7 +11,7 @@ export class TwitchService {
     }
   }
 
-  async getStreams(limit = 20) {
+  async getStreams(limit = 50) {
     const response = await fetch('https://api.twitch.tv/helix/streams?first=100', {
       headers: this.headers,
     })

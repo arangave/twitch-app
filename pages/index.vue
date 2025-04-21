@@ -11,8 +11,9 @@ const collapsed = ref(false)
 const twitchService = new TwitchService()
 
 onMounted(async () => {
-  streams.value = await twitchService.getStreams()
+  streams.value = await twitchService.getStreams(50)
 })
+
 </script>
 
 <template>

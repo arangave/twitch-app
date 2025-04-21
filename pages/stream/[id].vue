@@ -36,7 +36,7 @@ onMounted(async () => {
         <div class="main-content">
           <div class="video-section">
             <iframe
-            ::src="`https://player.twitch.tv/?channel=${videoDetails.user_login}&autoplay=true&parent=${domain}`"
+            :src="`https://player.twitch.tv/?channel=${videoDetails.user_login}&autoplay=true&parent=${domain}`"
             frameborder="0"
             allowfullscreen
             width="100%"
