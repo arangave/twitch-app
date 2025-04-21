@@ -39,10 +39,8 @@ export default [
           math: 'always',
         },
       ],
-      'prettier/prettier': 'error',
       semi: ['error', 'never'],
       quotes: ['error', 'single'],
-    }
-    
+    },
   },
 ]

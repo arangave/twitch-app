@@ -54,127 +54,35 @@ const featured = [
 </template>
 
 <style scoped lang="scss">
-.categories-section {
-  margin-top: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-.categories-title {
-  font-size: 1.25rem;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-  color: #fff;
-  &--blue {
-    color: #1e61cc;
-    font-weight: 600;
-  }
+.categories-section { margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+.categories-title { font-size: 1.25rem; font-weight: 500; margin-bottom: .5rem; color: #fff;
+  &--blue { color: #1e61cc; font-weight: 600; }
 }
 .grid-categories {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(2, 1fr);
-  @media (min-width: 48rem) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  @media (min-width: 64rem) {
-    grid-template-columns: repeat(6, 1fr);
-  }
-  &.collapsed {
-    @media (min-width: 64rem) {
-      grid-template-columns: repeat(8, 1fr);
-    }
-  }
+  display: grid; gap: 1.5rem; grid-template-columns: repeat(2, 1fr);
+  @media (min-width: 48rem) { grid-template-columns: repeat(3, 1fr); }
+  @media (min-width: 64rem) { grid-template-columns: repeat(6, 1fr); }
+  &.collapsed { @media (min-width: 64rem) { grid-template-columns: repeat(8, 1fr); } }
 }
 .category-card {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  background: #0e0e10;
-  border-radius: 0.5rem;
-  overflow: hidden;
-  text-align: center;
-  transition:
-    box-shadow 0.3s,
-    transform 0.3s;
-  &:hover {
-    box-shadow: 0 0 0.625rem 0.125rem #1e61cc;
-    transform: translateY(-0.125rem);
-  }
-  &__image {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-bottom: 0.0625rem solid #0e0e10;
-  }
-  &__info {
-    padding: 0.5rem;
-  }
-  &__name {
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: #fff;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  &__viewers {
-    color: #aaa;
-    font-size: 0.8rem;
-    margin-top: -0.2rem;
-  }
-  &__tag {
-    color: #eee;
-    font-size: 0.75rem;
-    background: #2c2c2c;
-    padding: 0.25rem 0.5rem;
-    border-radius: 1rem;
-    margin-top: 0.5rem;
-    display: inline-block;
-    text-align: center;
-  }
+  display: flex; flex-direction: column; gap: .5rem; background: #0e0e10; border-radius: .5rem;
+  overflow: hidden; text-align: center; transition: box-shadow .3s, transform .3s;
+  &:hover { box-shadow: 0 0 .625rem .125rem #1e61cc; transform: translateY(-.125rem); }
+  &__image { width: 100%; height: auto; object-fit: cover; border-bottom: .0625rem solid #0e0e10; }
+  &__info { padding: .5rem; }
+  &__name { font-weight: 600; font-size: .9rem; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  &__viewers { color: #aaa; font-size: .8rem; margin-top: -.2rem; }
+  &__tag { color: #eee; font-size: .75rem; background: #2c2c2c; padding: .25rem .5rem; border-radius: 1rem; margin-top: .5rem; display: inline-block; text-align: center; }
 }
 .featured-categories {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
-  margin-top: 2rem;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin-top: 2rem;
   .featured-category {
-    background: #1e61cc;
-    padding: 0.75rem 1rem;
-    border-radius: 0.65rem;
-    color: white;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 10rem;
-    height: 1rem;
-    font-size: 0.85rem;
-    position: relative;
-    text-align: left;
-    transition:
-      background-color 0.3s,
-      transform 0.2s;
-    span {
-      flex: 1;
-      margin-left: 0.5rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    img {
-      width: 4rem;
-      height: 3rem;
-      object-fit: contain;
-      position: absolute;
-      right: -1rem;
-    }
-    &:hover {
-      background: #1d3b77;
-      transform: translateY(-0.125rem);
-    }
+    background: #1e61cc; padding: .75rem 1rem; border-radius: .65rem; color: white; font-weight: 600;
+    display: flex; align-items: center; justify-content: flex-start; width: 10rem; height: 1rem; font-size: .85rem;
+    position: relative; text-align: left; transition: background-color .3s, transform .2s;
+    span { flex: 1; margin-left: .5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    img { width: 4rem; height: 3rem; object-fit: contain; position: absolute; right: -1rem; }
+    &:hover { background: #1d3b77; transform: translateY(-.125rem); }
   }
 }
 </style>

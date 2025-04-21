@@ -106,142 +106,55 @@ onMounted(() => {
     </div>
   </section>
 </template>
-
 <style scoped lang="scss">
-.live-section {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
+.live-section { display: flex; flex-direction: column; gap: 1rem; }
 .live-title {
-  font-size: 1.25rem;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-  color: #fff;
-  &--blue {
-    color: #1e61cc;
-    font-weight: 600;
-  }
+  font-size: 1.25rem; font-weight: 500; margin-bottom: .5rem; color: #fff;
+  &--blue { color: #1e61cc; font-weight: 600; }
 }
 .grid-streams {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(1, 1fr);
-  @media (min-width: 48rem) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @media (min-width: 64rem) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  &.collapsed {
-    @media (min-width: 64rem) {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
+  display: grid; gap: 1.5rem; grid-template-columns: repeat(1, 1fr);
+  @media (min-width: 48rem) { grid-template-columns: repeat(2, 1fr); }
+  @media (min-width: 64rem) { grid-template-columns: repeat(3, 1fr); }
+  &.collapsed { @media (min-width: 64rem) { grid-template-columns: repeat(4, 1fr); } }
 }
 .stream-card {
-  background: #0e0e10;
-  border-radius: 0.5rem;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  transition:
-    box-shadow 0.3s ease,
-    transform 0.3s ease;
-  &:hover {
-    box-shadow: 0 0 10px 2px #1e61cc;
-    transform: translateY(-2px);
-  }
-  &__preview-wrapper {
-    width: 100%;
-    aspect-ratio: 16/9;
-    background: #000;
-  }
-  &__iframe,
-  &__preview {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  &__info {
-    display: flex;
-    padding: 0.5rem 0.75rem;
-    gap: 0.5rem;
-  }
-  &__avatar {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-top: 1rem;
-  }
-  &__details {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 0.5rem;
-  }
-  &__title {
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: #fff;
-    line-height: 1.2;
-  }
+  background: #0e0e10; border-radius: .5rem; overflow: hidden; display: flex; flex-direction: column;
+  transition: box-shadow .3s ease, transform .3s ease;
+  &:hover { box-shadow: 0 0 10px 2px #1e61cc; transform: translateY(-2px); }
+  &__preview-wrapper { width: 100%; aspect-ratio: 16/9; background: #000; }
+  &__iframe, &__preview { width: 100%; height: 100%; object-fit: cover; display: block; }
+  &__info { display: flex; padding: .5rem .75rem; gap: .5rem; }
+  &__avatar { width: 2rem; height: 2rem; border-radius: 50%; object-fit: cover; margin-top: 1rem; }
+  &__details { flex: 1; display: flex; flex-direction: column; margin-bottom: .5rem; }
+  &__title { font-weight: 600; font-size: .9rem; color: #fff; line-height: 1.2; }
   &__user {
-    margin-top: -0.2rem;
-    color: #aaa;
-    font-size: 0.8rem;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    .verified-icon {
-      width: 0.8rem;
-      height: 0.8rem;
-    }
+    margin-top: -.2rem; color: #aaa; font-size: .8rem;
+    display: flex; align-items: center; gap: .4rem;
+    .verified-icon { width: .8rem; height: .8rem; }
   }
   &__tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
+    display: flex; flex-wrap: wrap; gap: .4rem;
     span {
-      background: #2c2c2c;
-      padding: 0.2rem 0.5rem;
-      border-radius: 1rem;
-      font-size: 0.75rem;
-      color: #eee;
+      background: #2c2c2c; padding: .2rem .5rem;
+      border-radius: 1rem; font-size: .75rem; color: #eee;
     }
   }
 }
 .show-more-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 2rem;
-  cursor: pointer;
+  display: flex; align-items: center; gap: 1rem;
+  margin-top: 2rem; cursor: pointer;
 }
 .divider {
-  flex: 1;
-  height: 0.05rem;
-  background: #555;
-  border: none;
+  flex: 1; height: .05rem; background: #555; border: none;
 }
 .show-more {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #1e61cc;
-  white-space: nowrap;
+  display: flex; align-items: center; gap: .4rem;
+  font-size: .95rem; font-weight: 600; color: #1e61cc; white-space: nowrap;
   img {
-    width: 0.75rem;
-    height: 0.75rem;
-    transition: transform 0.3s ease;
+    width: .75rem; height: .75rem; transition: transform .3s ease;
     filter: brightness(0) invert(1);
   }
 }
-.rotated {
-  transform: rotate(180deg);
-}
+.rotated { transform: rotate(180deg); }
 </style>

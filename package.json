@@ -11,8 +11,7 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*.{js,ts,vue}": "eslint --fix",
-    "*.{scss,css,md,json}": "prettier --write"
+  "*.{js,ts,vue}": "eslint --fix"
   },
   "dependencies": {
     "@nuxt/content": "^3.4.0",
