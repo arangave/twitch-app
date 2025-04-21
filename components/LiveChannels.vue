@@ -59,17 +59,25 @@ onMounted(() => {
     </h2>
     <div :class="['grid-streams', { collapsed: props.collapsed }]">
       <div v-for="stream in visibleStreams" :key="stream.id" class="stream-card">
-        <NuxtLink :to="`/stream/${stream.user_login}`">
-          <div class="stream-card__preview-wrapper">
+        <div
+          class="stream-card__preview-wrapper"
+          @mouseenter="loadPlayer(stream.user_login, stream.id)"
+          @mouseleave="unloadPlayer"
+        >
+          <NuxtLink :to="`/stream/${stream.user_login}`">
             <img
               class="stream-card__preview"
-              :src="
-                stream.thumbnail_url.replace('{width}', '320').replace('{height}', '180')
-              "
+              :src="stream.thumbnail_url.replace('{width}', '320').replace('{height}', '180')"
               :alt="stream.title"
             />
-          </div>
-        </NuxtLink>
+          </NuxtLink>
+
+          <div
+            v-if="hoveredId === stream.id"
+            :id="`twitch-player-${stream.id}`"
+            class="stream-card__iframe player-overlay"
+          />
+        </div>
 
         <div class="stream-card__info">
           <img
