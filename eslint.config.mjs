@@ -41,6 +41,7 @@ export default [
       ],
       semi: ['error', 'never'],
       quotes: ['error', 'single'],
+      'prettier/prettier': 'error',
     },
   },
 ]
