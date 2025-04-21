@@ -111,7 +111,6 @@ export class TwitchService {
     })
   }
 
-  // ✅ Método adicional para obtener detalles del canal
   async getStreamDetails(userLogin: string) {
     try {
       const userRes = await fetch(

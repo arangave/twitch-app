@@ -51,127 +51,50 @@ onMounted(async () => {
   }
 })
 </script>
-
 <style scoped lang="scss">
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #18181b;
-  padding: 0.75rem 1.5rem;
-  border-bottom: 1px solid #18181b;
+  display: flex; justify-content: space-between; align-items: center;
+  background: #18181b; padding: .75rem 1.5rem; border-bottom: .0625rem solid #18181b;
 
-  &__left,
-  &__right {
-    display: flex;
-    align-items: center;
-  }
-
-  &__left {
-    gap: 0.5rem;
-  }
-
-  &__right {
-    gap: 0.75rem;
-  }
-
-  &__logo {
-    height: 24px;
-  }
-
+  &__left, &__right { display: flex; align-items: center; }
+  &__left { gap: .5rem; }
+  &__right { gap: .75rem; }
+  &__logo { height: 1.5rem; }
   &__title {
-    font-weight: bold;
-    color: #fff;
-    font-size: 1.1rem;
-    text-decoration: none;
-    cursor: pointer;
+    font-weight: bold; color: #fff; font-size: 1.1rem;
+    text-decoration: none; cursor: pointer;
   }
-
-  &__more {
-    width: 16px;
-    height: 16px;
-    margin-left: 6px;
-    opacity: 0.7;
-  }
-
+  &__more { width: 1rem; height: 1rem; margin-left: .375rem; opacity: .7; }
   &__search {
-    display: flex;
-    align-items: center;
-    background: #27272a;
-    border-radius: 4px;
-    overflow: hidden;
-    width: 300px;
+    display: flex; align-items: center; background: #27272a;
+    border-radius: .25rem; overflow: hidden; width: 18.75rem;
 
     input {
-      background: transparent;
-      border: none;
-      padding: 0.5rem;
-      color: #fff;
-      flex: 1;
-      outline: none;
+      background: transparent; border: none; padding: .5rem;
+      color: #fff; flex: 1; outline: none;
     }
 
     .header__search-icon {
-      background: none;
-      border: none;
-      padding: 0 0.75rem;
-      cursor: pointer;
+      background: none; border: none; padding: 0 .75rem; cursor: pointer;
     }
   }
+  &__icon, &__notification { width: 1.25rem; height: 1.25rem; filter: brightness(0) invert(1); cursor: pointer; opacity: .8; transition: filter .2s; }
+  &__profile { border-radius: 50%; }
 
-  &__icon {
-    width: 20px;
-    height: 20px;
-    filter: brightness(0) invert(1);
-    cursor: pointer;
+  &__login, &__signup {
+    background: none; border: .0625rem solid #1e61cc;
+    color: #fff; padding: .4rem 1rem; border-radius: .25rem; cursor: pointer;
+    &:hover { background: #1e61cc; }
   }
 
-  &__profile {
-    border-radius: 50%;
-  }
+  &__signup { background: #1e61cc; border-color: #1e61cc; }
 
-  &__login,
-  &__signup {
-    background: none;
-    border: 1px solid #1e61cc;
-    color: #fff;
-    padding: 0.4rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-
-    &:hover {
-      background-color: #1e61cc;
-    }
-  }
-
-  &__signup {
-    background-color: #1e61cc;
-    border-color: #1e61cc;
-  }
-
-  &__notification-wrapper {
-    position: relative;
-    display: inline-block;
-  }
-
-  &__notification {
-    width: 20px;
-    height: 20px;
-    opacity: 0.8;
-    transition: filter 0.2s ease-in-out;
-  }
+  &__notification-wrapper { position: relative; display: inline-block; }
 }
 
 .notification-badge {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  background-color: #e91916;
-  color: white;
-  font-size: 0.5rem; // más pequeño
-  font-weight: bold;
-  padding: 0.1rem 0.3rem; // menos relleno
-  border-radius: 9999px;
-  line-height: 1;
+  position: absolute; top: -.375rem; right: -.375rem;
+  background: #e91916; color: #fff; font-size: .5rem;
+  font-weight: bold; padding: .1rem .3rem; border-radius: 9999px; line-height: 1;
 }
 </style>

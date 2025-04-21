@@ -63,136 +63,62 @@ onMounted(async () => {
 
 <style scoped lang="scss">
 .sidebar {
-  width: 15rem;
-  min-width: 15rem;
-  background-color: #0e0e10;
-  padding: 1rem;
-  color: #fff;
-  border-right: 0.0625rem solid #0e0e10;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  font-family: 'Rubik', sans-serif;
-  transition: width 0.3s ease;
+  width: 15rem; min-width: 15rem; background: #0e0e10; padding: 1rem; color: #fff;
+  border-right: .0625rem solid #0e0e10; display: flex; flex-direction: column;
+  overflow-y: auto; font-family: 'Rubik', sans-serif; transition: width .3s;
 
   &.collapsed {
-    width: 2.7rem;
-    min-width: 2.7rem;
-    .sidebar__title,
-    .sidebar__info,
-    .sidebar__viewers {
-      display: none;
-    }
-    .sidebar__item {
-      justify-content: flex-start;
-      padding: 0.3rem 0.4rem;
-    }
+    width: 2.7rem; min-width: 2.7rem;
+
+    .sidebar__title, .sidebar__info, .sidebar__viewers { display: none; }
+    .sidebar__item { justify-content: flex-start; padding: .3rem .4rem; }
   }
 
-  &__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 0 1.25rem 0.75rem;
-  }
-
-  &__title {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #dedee3;
-    margin: 0;
-  }
+  &__header { display: flex; justify-content: space-between; align-items: center; margin: 0 0 1.25rem .75rem; }
+  &__title { font-size: .85rem; font-weight: 600; color: #dedee3; margin: 0; }
 
   &__collapse {
-    width: 1.2rem;
-    height: 1.2rem;
-    cursor: pointer;
-    opacity: 0.7;
-    filter: brightness(0) invert(1);
-    transition: filter 0.2s ease-in-out;
-    &.rotated {
-      transform: rotate(180deg);
-      transition: transform 0.3s ease-in-out;
-    }
+    width: 1.2rem; height: 1.2rem; cursor: pointer; opacity: .7;
+    filter: brightness(0) invert(1); transition: filter .2s;
+
+    &.rotated { transform: rotate(180deg); transition: transform .3s; }
   }
 
-  &__list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
+  &__list { list-style: none; padding: 0; margin: 0; }
 
   &__item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 1.2rem;
-    padding: 0.3rem 0.4rem;
-    width: 100%;
-    border-radius: 0.25rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-    text-decoration: none;
-    color: inherit;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem; margin-bottom: 1.2rem; padding: .3rem .4rem; width: 100%;
+    border-radius: .25rem; cursor: pointer; transition: background .2s;
+    text-decoration: none; color: inherit;
 
-    &:hover {
-      background-color: #1e61cc;
-    }
+    &:hover { background: #1e61cc; }
   }
 
-  &__avatar {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-    object-fit: cover;
-  }
+  &__avatar { width: 2rem; height: 2rem; border-radius: 50%; object-fit: cover; }
 
   &__info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    p {
-      margin: 0;
-      line-height: 1.1;
-    }
+    flex: 1; display: flex; flex-direction: column; overflow: hidden;
+
+    p { margin: 0; line-height: 1.1; }
   }
 
-  &__name {
-    font-weight: 600;
-    font-size: 0.8125rem;
-    color: #fff;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  &__name, &__category {
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
 
-  &__category {
-    font-size: 0.75rem;
-    font-weight: 400;
-    color: #adadb8;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+  &__name { font-weight: 600; font-size: .8125rem; color: #fff; }
+  &__category { font-size: .75rem; font-weight: 400; color: #adadb8; }
 
   &__viewers {
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    white-space: nowrap;
+    font-size: .75rem; font-weight: 500; color: #fff;
+    display: flex; align-items: center; gap: .25rem; white-space: nowrap;
   }
 
   &__live-dot {
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 50%;
-    background-color: #e91916;
-    border: 0.125rem solid #0e0e10;
+    width: .5rem; height: .5rem; border-radius: 50%;
+    background: #e91916; border: .125rem solid #0e0e10;
   }
 }
 </style>
+
