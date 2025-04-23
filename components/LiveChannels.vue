@@ -18,14 +18,12 @@ const props = defineProps<{
   collapsed?: boolean
 }>()
 
-// 1. Computed que usa false si no se le pasa collapsed
 const isCollapsed = computed(() => props.collapsed ?? false)
 
 const hoveredId = ref<string | null>(null)
 let player: any = null
 const showAll = ref(false)
 
-// 2. Usamos isCollapsed en lugar de props.collapsed
 const visibleStreams = computed(() => {
   const limit = showAll.value
     ? props.streams.length
@@ -61,7 +59,6 @@ const unloadPlayer = () => {
   player = null
 }
 
-// 3. Carga el SDK de Twitch solo en cliente
 onMounted(() => {
   if (!(window as any).Twitch?.Player) {
     const script = document.createElement('script')
@@ -93,7 +90,6 @@ onMounted(() => {
               :alt="stream.title"
             />
           </NuxtLink>
-
           <div
             v-if="hoveredId === stream.id"
             :id="`twitch-player-${stream.id}`"
@@ -182,6 +178,7 @@ onMounted(() => {
     box-shadow: 0 0 10px 2px #1e61cc;
     transform: translateY(-2px);
   }
+
   &__preview-wrapper {
     width: 100%;
     aspect-ratio: 16/9;
@@ -225,10 +222,10 @@ onMounted(() => {
     display: flex;
     align-items: center;
     gap: 0.4rem;
-    .verified-icon {
-      width: 0.8rem;
-      height: 0.8rem;
-    }
+  }
+  .verified-icon {
+    width: 0.8rem;
+    height: 0.8rem;
   }
   &__tags {
     display: flex;

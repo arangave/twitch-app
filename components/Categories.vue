@@ -173,7 +173,7 @@ const featured = [
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 1.5rem; // Espacio por defecto
+  gap: 0.5rem;
   margin: 2rem 0;
   max-width: 100%;
   margin-inline: auto;
@@ -215,14 +215,12 @@ const featured = [
     transform: translateY(-2px);
   }
 
-  // SOLO cuando el sidebar está abierto Y estamos en pantallas grandes
   @media (min-width: 1024px) {
     .featured-categories.sidebar-open & {
-      width: 200px; // ligeramente más pequeñas para que quepan las 5
+      width: 200px;
     }
   }
 
-  // Ajustes móviles
   @media (max-width: 768px) {
     font-size: 0.95rem;
 

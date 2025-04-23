@@ -27,10 +27,12 @@ export class TwitchService {
       .sort((a: any, b: any) => b.viewer_count - a.viewer_count)
       .slice(0, limit)
       .map((stream: any) => {
+        const userName = stream.user_name?.toLowerCase() || ''
+        const userLogin = stream.user_login || userName
         return {
           ...stream,
-          user_login: stream.user_login || stream.user_name?.toLowerCase() || '',
-          is_verified: this.verifiedUsers.includes(stream.user_name?.toLowerCase() || ''),
+          user_login: userLogin,
+          is_verified: this.verifiedUsers.includes(userName),
           tags: ['Español', 'DropsActivados'],
         }
       })
@@ -139,6 +141,7 @@ export class TwitchService {
         ...user,
         ...stream,
         followers,
+        is_verified: this.verifiedUsers.includes((user.display_name || '').toLowerCase()),
       }
     } catch (error) {
       console.error('Error al obtener detalles del canal:', error)

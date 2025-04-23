@@ -9,17 +9,14 @@ function formatViewers(count: number): string {
 }
 
 const props = defineProps<{ collapsed?: boolean }>()
-
-const emit = defineEmits<{
-  (e: 'toggle'): void
-}>()
+const emit = defineEmits<{ (e: 'toggle'): void }>()
 
 const channels = ref<any[]>([])
 const twitchService = new TwitchService()
 
 onMounted(async () => {
   try {
-    channels.value = await twitchService.getStreams(10) // usa getStreams para traer en vivo
+    channels.value = await twitchService.getStreams(10)
   } catch (e) {
     console.error('Error al cargar canales en vivo:', e)
   }
@@ -41,7 +38,7 @@ onMounted(async () => {
 
     <ul class="sidebar__list">
       <li v-for="channel in channels" :key="channel.id">
-        <NuxtLink :to="`/${channel.user_login}`" class="sidebar__item">
+        <NuxtLink :to="`/stream/${channel.user_login}`" class="sidebar__item">
           <img
             :src="
               channel.thumbnail_url.replace('{width}', '32').replace('{height}', '32')
@@ -51,7 +48,15 @@ onMounted(async () => {
           />
 
           <div v-if="!props.collapsed" class="sidebar__info">
-            <p class="sidebar__name">{{ channel.user_name }}</p>
+            <p class="sidebar__name">
+              {{ channel.user_name }}
+              <img
+                v-if="channel.is_verified"
+                src="/iconos/verificado.png"
+                alt="Verificado"
+                class="verified-icon"
+              />
+            </p>
             <p class="sidebar__category">{{ channel.game_name }}</p>
           </div>
 
@@ -88,6 +93,7 @@ onMounted(async () => {
     .sidebar__viewers {
       display: none;
     }
+
     .sidebar__item {
       justify-content: flex-start;
       padding: 0.3rem 0.4rem;
@@ -100,6 +106,7 @@ onMounted(async () => {
     align-items: center;
     margin: 0 0 1.25rem 0.75rem;
   }
+
   &__title {
     font-size: 0.85rem;
     font-weight: 600;
@@ -176,7 +183,11 @@ onMounted(async () => {
     font-weight: 600;
     font-size: 0.8125rem;
     color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
   }
+
   &__category {
     font-size: 0.75rem;
     font-weight: 400;
@@ -200,5 +211,12 @@ onMounted(async () => {
     background: #e91916;
     border: 0.125rem solid #0e0e10;
   }
+}
+
+.verified-icon {
+  width: 0.85rem;
+  height: 0.85rem;
+  margin-left: 0.2rem;
+  vertical-align: middle;
 }
 </style>

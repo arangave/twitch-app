@@ -69,13 +69,22 @@ const toggleSubscribe = () => {
           </div>
 
           <div class="stream-meta">
-            <h1 class="stream-name">{{ videoDetails.user_name }}</h1>
+            <h1 class="stream-name">
+              {{ videoDetails.user_name }}
+              <img
+                v-if="videoDetails.is_verified"
+                src="/iconos/verificado.png"
+                class="verified-icon"
+                alt="Verificado"
+              />
+            </h1>
+
             <p class="stream-title">{{ videoDetails.title }}</p>
             <div class="stream-tags">
               <span class="category">{{ videoDetails.game_name }}</span>
-              <span v-for="tag in videoDetails.tags" :key="tag" class="tag">{{
-                tag
-              }}</span>
+              <span v-for="tag in videoDetails.tags" :key="tag" class="tag">
+                {{ tag }}
+              </span>
             </div>
           </div>
 
@@ -238,7 +247,6 @@ const toggleSubscribe = () => {
   margin-top: 0.4rem;
 }
 .category {
-  font-weight: bold;
   color: #1e61cc;
 }
 .tag {
@@ -358,5 +366,11 @@ const toggleSubscribe = () => {
   .chat-section {
     margin-top: 1rem;
   }
+}
+.verified-icon {
+  width: 1rem;
+  height: 1rem;
+  margin-left: 0.4rem;
+  vertical-align: middle;
 }
 </style>
