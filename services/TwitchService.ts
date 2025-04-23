@@ -49,11 +49,14 @@ export class TwitchService {
 
     const data = await response.json()
 
-    return data.data.map((channel: any) => ({
-      ...channel,
-      user_login: channel.user_login || channel.user_name?.toLowerCase() || '',
-      is_verified: this.verifiedUsers.includes(channel.user_name?.toLowerCase() || ''),
-    }))
+    return data.data.map((channel: any) => {
+      const userName = channel.user_name?.toLowerCase() || ''
+      return {
+        ...channel,
+        user_login: channel.user_login || userName,
+        is_verified: this.verifiedUsers.includes(userName),
+      }
+    })
   }
 
   async getTopCategoriesWithViewers(limit = 20) {
@@ -137,10 +140,28 @@ export class TwitchService {
       const followersData = await followersRes.json()
       const followers = followersData.total ?? 0
 
+      // Obtener tags del stream
+      let tags: string[] = []
+      if (stream.id) {
+        try {
+          const tagsRes = await fetch(
+            `https://api.twitch.tv/helix/streams/tags?broadcaster_id=${user.id}`,
+            { headers: this.headers },
+          )
+          const tagsData = await tagsRes.json()
+          tags =
+            tagsData.data?.map((tag: any) => tag.localization_names?.es || tag.tag_id) ||
+            []
+        } catch (e) {
+          console.warn('No se pudieron obtener los tags:', e)
+        }
+      }
+
       return {
         ...user,
         ...stream,
         followers,
+        tags,
         is_verified: this.verifiedUsers.includes((user.display_name || '').toLowerCase()),
       }
     } catch (error) {

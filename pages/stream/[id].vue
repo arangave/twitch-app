@@ -24,7 +24,10 @@ onMounted(async () => {
   domain.value = window.location.hostname
   const details = await new VideoService().getStreamDetails(route.params.id as string)
   if (details?.user_login) {
-    videoDetails.value = details
+    videoDetails.value = {
+      ...details,
+      tags: ['Español', 'DropsActivados'], // Añadir tags manualmente si no vienen de la API
+    }
   } else {
     console.error('No se encontraron detalles del stream')
   }
@@ -44,9 +47,7 @@ const toggleSubscribe = () => {
 <template>
   <div v-if="videoDetails" class="stream-page">
     <div class="stream-layout">
-      <!-- CONTENIDO PRINCIPAL -->
       <div class="main-content">
-        <!-- 1. Vídeo -->
         <div class="video-section">
           <iframe
             :src="`https://player.twitch.tv/?channel=${videoDetails.user_login}&autoplay=true&parent=${domain}`"
@@ -57,7 +58,6 @@ const toggleSubscribe = () => {
           />
         </div>
 
-        <!-- 2. Cabecera del stream -->
         <div class="stream-header">
           <div class="avatar-wrapper">
             <img
@@ -120,7 +120,6 @@ const toggleSubscribe = () => {
           </div>
         </div>
 
-        <!-- 3. Sección “Acerca de” -->
         <h2 class="about-heading">Acerca de {{ videoDetails.user_name }}</h2>
         <div class="about">
           <p class="followers">
@@ -135,12 +134,11 @@ const toggleSubscribe = () => {
             <a href="#" class="icon"><Youtube :size="18" /></a>
             <a href="#" class="icon"><Instagram :size="18" /></a>
             <a href="#" class="icon"><Twitter :size="18" /></a>
-            <a href="#" class="icon"><TiktokIcon s:ize="18" /></a>
+            <a href="#" class="icon"><TiktokIcon :size="18" /></a>
           </div>
         </div>
       </div>
 
-      <!-- 4. Chat (a la derecha en pantallas grandes) -->
       <div class="chat-section">
         <iframe
           :src="`https://www.twitch.tv/embed/${videoDetails.user_login}/chat?darkpopout&parent=${domain}`"
@@ -152,7 +150,6 @@ const toggleSubscribe = () => {
       </div>
     </div>
   </div>
-
   <div v-else>
     <p style="color: white">Cargando video...</p>
   </div>
