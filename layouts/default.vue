@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import Header from '~/components/Header.vue'
 import Sidebar from '~/components/Sidebar.vue'
-import { ref } from 'vue'
+import { useSidebar } from '~/composables/useSidebar'
 
-const collapsed = ref(false)
+const ui = useSidebar()
 </script>
 
 <template>
   <div class="page">
     <Header />
-    <div :class="['layout', { collapsed }]">
-      <Sidebar :collapsed="collapsed" @toggle="collapsed = !collapsed" />
+    <div :class="['layout', { collapsed: ui.collapsed }]">
+      <Sidebar :collapsed="ui.collapsed" @toggle="ui.toggle()" />
       <main class="main-content">
         <slot />
       </main>

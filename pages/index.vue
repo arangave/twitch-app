@@ -13,7 +13,6 @@ const twitchService = new TwitchService()
 onMounted(async () => {
   streams.value = await twitchService.getStreams(50)
 })
-
 </script>
 
 <template>
@@ -23,7 +22,7 @@ onMounted(async () => {
       <Sidebar :collapsed="collapsed" @toggle="collapsed = !collapsed" />
       <main class="main-content">
         <LiveChannels :streams="streams" :collapsed="collapsed" />
-        <Categories />
+        <Categories :collapsed="collapsed" />/>
       </main>
     </div>
   </div>
