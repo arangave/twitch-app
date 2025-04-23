@@ -8,7 +8,6 @@ function formatViewers(count: number): string {
   return count.toString()
 }
 
-// Hacemos que collapsed sea opcional para no tener warnings si no lo pasas
 const props = defineProps<{ collapsed?: boolean }>()
 
 const emit = defineEmits<{
@@ -57,7 +56,6 @@ onMounted(async () => {
           </div>
 
           <div v-if="!props.collapsed" class="sidebar__viewers">
-            <!-- Span no puede ir auto-cerrado -->
             <span class="sidebar__live-dot" />
             <span>{{ formatViewers(channel.viewer_count) }}</span>
           </div>

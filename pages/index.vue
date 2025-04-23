@@ -3,11 +3,8 @@ import { ref, onMounted } from 'vue'
 import { TwitchService } from '~/services/TwitchService'
 import LiveChannels from '~/components/LiveChannels.vue'
 import Categories from '~/components/Categories.vue'
-import Header from '~/components/Header.vue'
-import Sidebar from '~/components/Sidebar.vue'
 
-const streams = ref([])
-const collapsed = ref(false)
+const streams = ref<any[]>([])
 const twitchService = new TwitchService()
 
 onMounted(async () => {
@@ -16,16 +13,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="page">
-    <Header />
-    <div :class="['layout', { collapsed }]">
-      <Sidebar :collapsed="collapsed" @toggle="collapsed = !collapsed" />
-      <main class="main-content">
-        <LiveChannels :streams="streams" :collapsed="collapsed" />
-        <Categories :collapsed="collapsed" />/>
-      </main>
-    </div>
-  </div>
+  <LiveChannels :streams="streams" />
+  <Categories />
 </template>
 
 <style scoped lang="scss">

@@ -1,4 +1,3 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineNuxtConfig({
@@ -12,10 +11,18 @@ export default defineNuxtConfig({
     '@nuxt/scripts',
     '@nuxt/test-utils',
   ],
-  vite: {
-    plugins: [tsconfigPaths()],
-    define: {
-      'process.env.DEBUG': false,
+  app: {
+    head: {
+      script: [
+        {
+          src: 'https://player.twitch.tv/js/embed/v1.js',
+          async: true,
+        },
+      ],
     },
+  },
+  vite: {
+    plugins: [tsconfigPaths({ ignoreConfigErrors: true })],
+    define: { 'process.env.DEBUG': false },
   },
 })
