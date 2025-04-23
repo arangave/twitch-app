@@ -61,7 +61,7 @@ const featured = [
       </div>
     </div>
 
-    <section class="featured-categories">
+    <section :class="['featured-categories', { 'sidebar-open': !isCollapsed }]">
       <div v-for="(category, index) in featured" :key="index" class="featured-category">
         <span>{{ category.name }}</span>
         <img :src="category.icon" :alt="category.name" />
@@ -172,59 +172,69 @@ const featured = [
 .featured-categories {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1.5rem; // Espacio por defecto
   margin: 2rem 0;
-  gap: 1rem;
-  margin-inline: -0.5rem; // contrarresta gap de 1rem
-  padding: 0;
+  max-width: 100%;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
 
-  .featured-category {
-    width: 240px;
-    height: 50px;
-    background: #1e61cc;
-    border-radius: 8px;
-    color: white;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 10px;
-    font-size: 1.05rem;
-    transition:
-      background-color 0.3s ease,
-      transform 0.2s ease;
-    margin-inline: 0.9rem; // espacio entre tarjetas, no en bordes
+.featured-category {
+  width: 240px;
+  height: 50px;
+  background: #1e61cc;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  font-size: 1.05rem;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease,
+    width 0.3s ease;
+
+  span {
+    margin-left: 0.1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  img {
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+  }
+
+  &:hover {
+    background: #1d3b77;
+    transform: translateY(-2px);
+  }
+
+  // SOLO cuando el sidebar está abierto Y estamos en pantallas grandes
+  @media (min-width: 1024px) {
+    .featured-categories.sidebar-open & {
+      width: 200px; // ligeramente más pequeñas para que quepan las 5
+    }
+  }
+
+  // Ajustes móviles
+  @media (max-width: 768px) {
+    font-size: 0.95rem;
 
     span {
-      margin-left: 0.1rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      white-space: normal;
+      text-overflow: unset;
+      overflow: visible;
     }
 
     img {
-      width: 65px;
-      height: 65px;
-      object-fit: contain;
-    }
-
-    &:hover {
-      background: #1d3b77;
-      transform: translateY(-2px);
-    }
-
-    @media (max-width: 768px) {
-      font-size: 0.95rem;
-
-      span {
-        white-space: normal;
-        text-overflow: unset;
-        overflow: visible;
-      }
-
-      img {
-        width: 50px;
-        height: 50px;
-      }
+      width: 50px;
+      height: 50px;
     }
   }
 }

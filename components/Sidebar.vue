@@ -19,9 +19,9 @@ const twitchService = new TwitchService()
 
 onMounted(async () => {
   try {
-    channels.value = await twitchService.getRecommendedChannels(10)
+    channels.value = await twitchService.getStreams(10) // usa getStreams para traer en vivo
   } catch (e) {
-    console.error('Error al cargar canales recomendados:', e)
+    console.error('Error al cargar canales en vivo:', e)
   }
 })
 </script>
