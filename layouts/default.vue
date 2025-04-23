@@ -2,6 +2,8 @@
 import { ref, onMounted, onBeforeUnmount, computed } from 'vue'
 import Header from '~/components/Header.vue'
 import Sidebar from '~/components/Sidebar.vue'
+// <<< IMPORTA EL COMPOSABLE
+import { useSidebar } from '~/composables/useSidebar'
 
 const { collapsed, toggle } = useSidebar()
 
@@ -18,6 +20,7 @@ onBeforeUnmount(() => {
 })
 
 const showContent = computed(() => {
+  // en móvil sólo muestro contenido si el sidebar está colapsado
   return !isMobile.value || collapsed.value
 })
 </script>

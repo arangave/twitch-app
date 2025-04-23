@@ -19,14 +19,14 @@ const route = useRoute()
 const videoDetails = ref<any>(null)
 const domain = ref('')
 
-// Carga datos y dominio en onMounted (cliente)
+// Carga datos y dominio en onMounted (sólo en cliente)
 onMounted(async () => {
   domain.value = window.location.hostname
   const details = await new VideoService().getStreamDetails(route.params.id as string)
   if (details?.user_login) {
     videoDetails.value = details
   } else {
-    console.error('No se encontraron detalles del video')
+    console.error('No se encontraron detalles del stream')
   }
 })
 
@@ -44,98 +44,103 @@ const toggleSubscribe = () => {
 <template>
   <div v-if="videoDetails" class="stream-page">
     <div class="stream-layout">
-      <!-- Vídeo -->
-      <div class="video-section">
+      <!-- CONTENIDO PRINCIPAL -->
+      <div class="main-content">
+        <!-- 1. Vídeo -->
+        <div class="video-section">
+          <iframe
+            :src="`https://player.twitch.tv/?channel=${videoDetails.user_login}&autoplay=true&parent=${domain}`"
+            frameborder="0"
+            allowfullscreen
+            width="100%"
+            height="100%"
+          />
+        </div>
+
+        <!-- 2. Cabecera del stream -->
+        <div class="stream-header">
+          <div class="avatar-wrapper">
+            <img
+              :src="videoDetails.profile_image_url"
+              class="avatar"
+              alt="Streamer avatar"
+            />
+            <span class="live-tag">VIVIR</span>
+          </div>
+
+          <div class="stream-meta">
+            <h1 class="stream-name">{{ videoDetails.user_name }}</h1>
+            <p class="stream-title">{{ videoDetails.title }}</p>
+            <div class="stream-tags">
+              <span class="category">{{ videoDetails.game_name }}</span>
+              <span v-for="tag in videoDetails.tags" :key="tag" class="tag">{{
+                tag
+              }}</span>
+            </div>
+          </div>
+
+          <div class="stream-actions">
+            <div class="buttons">
+              <button class="btn follow" @click="toggleFollow">
+                <Heart
+                  :fill="isFollowing ? 'white' : 'none'"
+                  color="white"
+                  stroke-width="2"
+                  :size="16"
+                />
+                {{ isFollowing ? 'Siguiendo' : 'Seguir' }}
+              </button>
+              <button class="btn subscribe" @click="toggleSubscribe">
+                <Star
+                  :fill="isSubscribed ? '#facc15' : 'none'"
+                  :color="isSubscribed ? '#facc15' : 'white'"
+                  stroke-width="2"
+                  :size="16"
+                />
+                {{ isSubscribed ? 'Suscrito' : 'Suscribirse' }}
+              </button>
+            </div>
+            <div class="icons">
+              <span class="icon red-icon">
+                <User :size="16" /> {{ videoDetails.viewer_count }}
+              </span>
+              <span class="icon"><Clock3 :size="16" /> 3:23:05</span>
+              <span class="icon"><ArrowUpRightFromSquare :size="16" /></span>
+              <span class="icon"><MoreVertical :size="16" /></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Sección “Acerca de” -->
+        <h2 class="about-heading">Acerca de {{ videoDetails.user_name }}</h2>
+        <div class="about">
+          <p class="followers">
+            {{ videoDetails.followers.toLocaleString() }}
+            <span v-if="videoDetails.followers > 0">seguidores</span>
+          </p>
+          <p class="description">
+            {{ videoDetails.description || 'Sin descripción disponible.' }}
+          </p>
+          <hr class="about-divider" />
+          <div class="socials">
+            <a href="#" class="icon"><Youtube :size="18" /></a>
+            <a href="#" class="icon"><Instagram :size="18" /></a>
+            <a href="#" class="icon"><Twitter :size="18" /></a>
+            <a href="#" class="icon"><TiktokIcon s:ize="18" /></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Chat (a la derecha en pantallas grandes) -->
+      <div class="chat-section">
         <iframe
-          :src="`https://player.twitch.tv/?channel=${videoDetails.user_login}&autoplay=true&parent=${domain}`"
+          :src="`https://www.twitch.tv/embed/${videoDetails.user_login}/chat?darkpopout&parent=${domain}`"
           frameborder="0"
-          allowfullscreen
+          scrolling="yes"
           width="100%"
           height="100%"
         />
       </div>
-
-      <!-- Cabecera del stream -->
-      <div class="stream-header">
-        <div class="avatar-wrapper">
-          <img
-            :src="videoDetails.profile_image_url"
-            class="avatar"
-            alt="Streamer avatar"
-          />
-          <span class="live-tag">VIVIR</span>
-        </div>
-
-        <div class="stream-meta">
-          <h1 class="stream-name">{{ videoDetails.user_name }}</h1>
-          <p class="stream-title">{{ videoDetails.title }}</p>
-          <div class="stream-tags">
-            <span class="category">{{ videoDetails.game_name }}</span>
-            <span v-for="tag in videoDetails.tags" :key="tag" class="tag">{{ tag }}</span>
-          </div>
-        </div>
-
-        <div class="stream-actions">
-          <div class="buttons">
-            <button class="btn follow" @click="toggleFollow">
-              <Heart
-                :fill="isFollowing ? 'white' : 'none'"
-                color="white"
-                stroke-width="2"
-                :size="16"
-              />
-              {{ isFollowing ? 'Siguiendo' : 'Seguir' }}
-            </button>
-            <button class="btn subscribe" @click="toggleSubscribe">
-              <Star
-                :fill="isSubscribed ? '#facc15' : 'none'"
-                :color="isSubscribed ? '#facc15' : 'white'"
-                stroke-width="2"
-                :size="16"
-              />
-              {{ isSubscribed ? 'Suscrito' : 'Suscribirse' }}
-            </button>
-          </div>
-          <div class="icons">
-            <span class="icon red-icon">
-              <User :alignment-baseline="16" /> {{ videoDetails.viewer_count }}
-            </span>
-            <span class="icon"><Clock3 :size="16" /> 3:23:05</span>
-            <span class="icon"><ArrowUpRightFromSquare :size="16" /></span>
-            <span class="icon"><MoreVertical :size="16" /></span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Acerca de -->
-      <h2 class="about-heading">Acerca de {{ videoDetails.user_name }}</h2>
-      <div class="about">
-        <p class="followers">
-          {{ videoDetails.followers.toLocaleString() }}
-          <span v-if="videoDetails.followers > 0">seguidores</span>
-        </p>
-        <p class="description">
-          {{ videoDetails.description || 'Sin descripción disponible.' }}
-        </p>
-        <hr class="about-divider" />
-        <div class="socials">
-          <Youtube :size="18" />
-          <Instagram :size="18" />
-          <Twitter :size="18" />
-          <TiktokIcon :size="18" />
-        </div>
-      </div>
-    </div>
-
-    <!-- Chat -->
-    <div class="chat-section">
-      <iframe
-        :src="`https://www.twitch.tv/embed/${videoDetails.user_login}/chat?darkpopout&parent=${domain}`"
-        frameborder="0"
-        scrolling="yes"
-        width="100%"
-        height="100%"
-      />
     </div>
   </div>
 
@@ -156,14 +161,22 @@ const toggleSubscribe = () => {
   flex-direction: column;
   gap: 1rem;
 }
+
+/* En pantallas ≥ 64em (1024px) mostramos en fila */
 @media (min-width: 64em) {
   .stream-layout {
     flex-direction: row;
   }
 }
 
-.video-section {
+.main-content {
   flex: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.video-section {
   background: #000;
   border-radius: 0.5rem;
   overflow: hidden;
@@ -288,7 +301,6 @@ const toggleSubscribe = () => {
   font-size: 1.1rem;
   font-weight: bold;
   margin: 1rem 0 0.5rem;
-  color: white;
 }
 .about {
   background: #1e1e1e;
@@ -333,8 +345,8 @@ const toggleSubscribe = () => {
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 1rem;
 }
+/* El iframe ocupa todo el contenedor */
 .chat-section iframe {
   flex: 1;
   width: 100%;
@@ -343,25 +355,8 @@ const toggleSubscribe = () => {
 }
 
 @media (max-width: 64em) {
-  .stream-layout {
-    flex-direction: column;
-  }
   .chat-section {
     margin-top: 1rem;
-  }
-  .stream-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .stream-actions {
-    align-items: flex-start;
-    width: 100%;
-  }
-}
-@media (max-width: 37.5em) {
-  .stream-tags {
-    flex-direction: column;
-    align-items: flex-start;
   }
 }
 </style>

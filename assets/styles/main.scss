@@ -1,0 +1,11 @@
+
+@use 'variables';
+@use 'mixins';
+
+
+:root {
+  --familia-de-fuentes: variables.$base-de-familia-de-fuentes;
+
+}
+
+

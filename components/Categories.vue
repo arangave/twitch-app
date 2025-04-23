@@ -34,43 +34,57 @@ const featured = [
 </script>
 
 <template>
-  <section class="categories-section">
-    <h2 class="categories-title">
-      <span class="categories-title--blue">Categories</span> we think you’ll like
-    </h2>
-    <div :class="['grid-categories', { collapsed: isCollapsed }]">
-      <div v-for="category in visibleCategories" :key="category.id" class="category-card">
-        <img
-          :src="category.box_art_url"
-          :alt="category.name"
-          class="category-card__image"
-        />
-        <div class="category-card__info">
-          <p class="category-card__name">{{ category.name }}</p>
-          <p class="category-card__viewers">
-            {{ formatViewers(category.viewer_count) }}
-          </p>
-          <p class="category-card__tag">{{ category.tag }}</p>
+  <section class="categories-wrapper">
+    <div class="categories-section">
+      <h2 class="categories-title">
+        <span class="categories-title--blue">Categories</span> we think you’ll like
+      </h2>
+      <div :class="['grid-categories', { collapsed: isCollapsed }]">
+        <div
+          v-for="category in visibleCategories"
+          :key="category.id"
+          class="category-card"
+        >
+          <img
+            :src="category.box_art_url"
+            :alt="category.name"
+            class="category-card__image"
+          />
+          <div class="category-card__info">
+            <p class="category-card__name">{{ category.name }}</p>
+            <p class="category-card__viewers">
+              {{ formatViewers(category.viewer_count) }}
+            </p>
+            <p class="category-card__tag">{{ category.tag }}</p>
+          </div>
         </div>
       </div>
     </div>
-  </section>
 
-  <section class="featured-categories">
-    <div v-for="(category, index) in featured" :key="index" class="featured-category">
-      <span>{{ category.name }}</span>
-      <img :src="category.icon" :alt="category.name" />
-    </div>
+    <section class="featured-categories">
+      <div v-for="(category, index) in featured" :key="index" class="featured-category">
+        <span>{{ category.name }}</span>
+        <img :src="category.icon" :alt="category.name" />
+      </div>
+    </section>
   </section>
 </template>
 
 <style scoped lang="scss">
+.categories-wrapper {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+  overflow: hidden;
+}
+
 .categories-section {
   margin-top: 2rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
+
 .categories-title {
   font-size: 1.25rem;
   font-weight: 500;
@@ -81,6 +95,7 @@ const featured = [
     font-weight: 600;
   }
 }
+
 .grid-categories {
   display: grid;
   gap: 1.5rem;
@@ -91,12 +106,14 @@ const featured = [
   @media (min-width: 64rem) {
     grid-template-columns: repeat(6, 1fr);
   }
+
   &.collapsed {
     @media (min-width: 64rem) {
       grid-template-columns: repeat(8, 1fr);
     }
   }
 }
+
 .category-card {
   display: flex;
   flex-direction: column;
@@ -108,19 +125,23 @@ const featured = [
   transition:
     box-shadow 0.3s,
     transform 0.3s;
+
   &:hover {
     box-shadow: 0 0 0.625rem 0.125rem #1e61cc;
     transform: translateY(-0.125rem);
   }
+
   &__image {
     width: 100%;
     height: auto;
     object-fit: cover;
     border-bottom: 0.0625rem solid #0e0e10;
   }
+
   &__info {
     padding: 0.5rem;
   }
+
   &__name {
     font-weight: 600;
     font-size: 0.9rem;
@@ -129,11 +150,13 @@ const featured = [
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
   &__viewers {
     color: #aaa;
     font-size: 0.8rem;
     margin-top: -0.2rem;
   }
+
   &__tag {
     color: #eee;
     font-size: 0.75rem;
@@ -145,46 +168,63 @@ const featured = [
     text-align: center;
   }
 }
+
 .featured-categories {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
-  margin-top: 2rem;
+  margin: 2rem 0;
+  gap: 1rem;
+  margin-inline: -0.5rem; // contrarresta gap de 1rem
+  padding: 0;
+
   .featured-category {
+    width: 240px;
+    height: 50px;
     background: #1e61cc;
-    padding: 0.75rem 1rem;
-    border-radius: 0.65rem;
+    border-radius: 8px;
     color: white;
     font-weight: 600;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    width: 10rem;
-    height: 1rem;
-    font-size: 0.85rem;
-    position: relative;
-    text-align: left;
+    justify-content: space-between;
+    padding: 0 10px;
+    font-size: 1.05rem;
     transition:
-      background-color 0.3s,
-      transform 0.2s;
+      background-color 0.3s ease,
+      transform 0.2s ease;
+    margin-inline: 0.9rem; // espacio entre tarjetas, no en bordes
+
     span {
-      flex: 1;
-      margin-left: 0.5rem;
+      margin-left: 0.1rem;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
     img {
-      width: 4rem;
-      height: 3rem;
+      width: 65px;
+      height: 65px;
       object-fit: contain;
-      position: absolute;
-      right: -1rem;
     }
+
     &:hover {
       background: #1d3b77;
-      transform: translateY(-0.125rem);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      font-size: 0.95rem;
+
+      span {
+        white-space: normal;
+        text-overflow: unset;
+        overflow: visible;
+      }
+
+      img {
+        width: 50px;
+        height: 50px;
+      }
     }
   }
 }

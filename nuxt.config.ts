@@ -1,8 +1,12 @@
+// nuxt.config.ts
+import { defineNuxtConfig } from 'nuxt/config'
 import tsconfigPaths from 'vite-tsconfig-paths'
+import { resolve } from 'path'
 
 export default defineNuxtConfig({
-  devtools: { enabled: true },
-  compatibilityDate: '2024-11-01',
+  // 1) inyecta tu CSS global sólo una vez
+  css: ['~/assets/styles/main.scss'],
+
   modules: [
     '@nuxt/eslint',
     '@nuxt/fonts',
@@ -11,6 +15,7 @@ export default defineNuxtConfig({
     '@nuxt/scripts',
     '@nuxt/test-utils',
   ],
+
   app: {
     head: {
       script: [
@@ -21,8 +26,20 @@ export default defineNuxtConfig({
       ],
     },
   },
+
   vite: {
     plugins: [tsconfigPaths({ ignoreConfigErrors: true })],
-    define: { 'process.env.DEBUG': false },
+    define: {
+      'process.env.DEBUG': false,
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          includePaths: [resolve(__dirname, 'assets/styles')],
+        },
+      },
+    },
   },
+
+  compatibilityDate: '2025-04-23',
 })
