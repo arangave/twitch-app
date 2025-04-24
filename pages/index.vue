@@ -37,7 +37,7 @@ onMounted(async () => {
 .main-content {
   flex: 1;
   overflow-y: auto;
-  padding: 2rem;
-  transition: all 0.3s ease;
+  padding: 2rem 2rem 2rem 2rem;
+  transition: all 0.3s;
 }
 </style>

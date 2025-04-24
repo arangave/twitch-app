@@ -95,6 +95,10 @@ onMounted(async () => {
 
 <style scoped lang="scss">
 .header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -126,7 +130,7 @@ onMounted(async () => {
     align-items: center;
     background: #27272a;
     border-radius: 0.25rem;
-    overflow: hidden;
+    overflow: auto;
     width: 20rem;
     transition: width 0.3s ease;
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps, ref, onMounted } from 'vue'
 import { TwitchService } from '~/services/TwitchService'
-import { formatNumber } from '~/composables/useFormat'
+import { formatNumber } from '~/composables/useFormat' // 💡 importa aquí
 
 const props = defineProps<{ collapsed?: boolean }>()
 const emit = defineEmits<{ (e: 'toggle'): void }>()
@@ -11,7 +11,7 @@ const twitchService = new TwitchService()
 
 onMounted(async () => {
   try {
-    channels.value = await twitchService.getStreams(8)
+    channels.value = await twitchService.getStreams(10)
   } catch (e) {
     console.error('Error al cargar canales en vivo:', e)
   }
@@ -21,7 +21,7 @@ onMounted(async () => {
 <template>
   <aside :class="['sidebar', { collapsed: props.collapsed }]">
     <div class="sidebar__header">
-      <h2 v-if="!props.collapsed" class="sidebar__title">Canales en directo</h2>
+      <h2 v-if="!props.collapsed" class="sidebar__title">RECOMMENDED CHANNELS</h2>
       <img
         src="/iconos/collapse.png"
         alt="Colapsar sidebar"
@@ -44,7 +44,7 @@ onMounted(async () => {
 
           <div v-if="!props.collapsed" class="sidebar__info">
             <p class="sidebar__name">
-              {{ channel.user_name }}
+              <span>{{ channel.user_name }}</span>
               <img
                 v-if="channel.is_verified"
                 src="/iconos/verificado.png"
@@ -52,6 +52,7 @@ onMounted(async () => {
                 class="verified-icon"
               />
             </p>
+
             <p class="sidebar__category">{{ channel.game_name }}</p>
           </div>
 
@@ -67,8 +68,8 @@ onMounted(async () => {
 
 <style scoped lang="scss">
 .sidebar {
-  width: 15rem;
-  min-width: 15rem;
+  width: 20rem;
+  min-width: 20rem;
   background: #0e0e10;
   padding: 1rem;
   color: #fff;
@@ -78,10 +79,14 @@ onMounted(async () => {
   overflow-y: auto;
   font-family: 'Rubik', sans-serif;
   transition: width 0.3s;
+  box-sizing: border-box;
+  position: sticky;
+  top: 4.5rem;
+  z-index: 10;
 
   &.collapsed {
-    width: 2.7rem;
-    min-width: 2.7rem;
+    width: 4.1rem;
+    min-width: 4.1rem;
 
     .sidebar__title,
     .sidebar__info,
@@ -99,7 +104,8 @@ onMounted(async () => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 0 1.25rem 0.75rem;
+    margin-bottom: 1.25rem;
+    padding-top: 1rem;
   }
 
   &__title {
@@ -116,6 +122,7 @@ onMounted(async () => {
     opacity: 0.7;
     filter: brightness(0) invert(1);
     transition: filter 0.2s;
+    margin-left: auto;
 
     &.rotated {
       transform: rotate(180deg);
@@ -159,7 +166,7 @@ onMounted(async () => {
     flex: 1;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow: auto;
 
     p {
       margin: 0;
@@ -167,8 +174,10 @@ onMounted(async () => {
     }
   }
 
-  &__name,
   &__category {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #adadb8;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -180,13 +189,7 @@ onMounted(async () => {
     color: #fff;
     display: flex;
     align-items: center;
-    gap: 0.3rem;
-  }
-
-  &__category {
-    font-size: 0.75rem;
-    font-weight: 400;
-    color: #adadb8;
+    gap: 0.5rem;
   }
 
   &__viewers {

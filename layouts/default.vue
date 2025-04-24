@@ -24,7 +24,7 @@ const showContent = computed(() => {
 
 <template>
   <div class="page">
-    <Header />
+    <Header class="header-fixed" />
 
     <div :class="['layout', { collapsed }]">
       <Sidebar :collapsed="collapsed" @toggle="toggle" />
@@ -41,21 +41,37 @@ const showContent = computed(() => {
   display: flex;
   flex-direction: column;
   height: 100vh;
-}
-.layout {
-  display: flex;
-  flex: 1;
-  overflow: hidden;
 
   max-width: 120rem;
   margin: 0 auto;
   width: 100%;
 }
 
+.layout {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  max-width: 120rem;
+  margin: 0 auto;
+}
+
 .main-content {
   flex: 1;
   overflow-y: auto;
-  padding: 2rem;
+  padding: 1rem;
   transition: all 0.3s;
+}
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+.header-fixed {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #0e0e10;
+  padding: 1rem 2rem;
 }
 </style>
