@@ -168,7 +168,6 @@ const toggleSubscribe = () => {
   gap: 1rem;
 }
 
-/* En pantallas ≥ 64em (1024px) mostramos en fila */
 @media (min-width: 64em) {
   .stream-layout {
     flex-direction: row;
@@ -351,7 +350,7 @@ const toggleSubscribe = () => {
   flex-direction: column;
   width: 100%;
 }
-/* El iframe ocupa todo el contenedor */
+
 .chat-section iframe {
   flex: 1;
   width: 100%;

@@ -2,17 +2,14 @@
 import { defineProps, ref, onMounted, computed } from 'vue'
 import { TwitchService } from '~/services/TwitchService'
 
-// 1. Hacemos que collapsed sea opcional
 const props = defineProps<{
   collapsed?: boolean
 }>()
 
-// 2. Computed que cae en false si no recibe nada
 const isCollapsed = computed(() => props.collapsed ?? false)
 
 const categories = ref<any[]>([])
 
-// 3. Usamos isCollapsed en lugar de props.collapsed
 const visibleCategories = computed(() =>
   categories.value.slice(0, isCollapsed.value ? 8 : 6),
 )
