@@ -19,21 +19,19 @@ const route = useRoute()
 const videoDetails = ref<any>(null)
 const domain = ref('')
 
-// Carga datos y dominio en onMounted (sólo en cliente)
 onMounted(async () => {
   domain.value = window.location.hostname
   const details = await new VideoService().getStreamDetails(route.params.id as string)
   if (details?.user_login) {
     videoDetails.value = {
       ...details,
-      tags: ['Español', 'DropsActivados'], // Añadir tags manualmente si no vienen de la API
+      tags: ['Español', 'DropsActivados'],
     }
   } else {
     console.error('No se encontraron detalles del stream')
   }
 })
 
-// Estado de follow/subscription
 const isFollowing = ref(false)
 const isSubscribed = ref(false)
 const toggleFollow = () => {

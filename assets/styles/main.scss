@@ -1,11 +1,8 @@
 
-@use 'variables';
-@use 'mixins';
+@forward '_variables';
+@forward '_mixins';
 
 
-:root {
-  --familia-de-fuentes: variables.$base-de-familia-de-fuentes;
 
-}
 
 

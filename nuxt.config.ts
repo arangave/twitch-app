@@ -4,8 +4,7 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 import { resolve } from 'path'
 
 export default defineNuxtConfig({
-  // 1) inyecta tu CSS global sólo una vez
-  css: ['~/assets/styles/main.scss'],
+  css: ['~/assets/styles/resets.css'],
 
   modules: [
     '@nuxt/eslint',
@@ -35,7 +34,7 @@ export default defineNuxtConfig({
     css: {
       preprocessorOptions: {
         scss: {
-          includePaths: [resolve(__dirname, 'assets/styles')],
+          additionalData: '@use "~/assets/styles/main.scss";',
         },
       },
     },
