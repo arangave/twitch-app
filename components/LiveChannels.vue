@@ -115,7 +115,6 @@ onMounted(() => {
               />
             </p>
             <div class="stream-card__tags">
-              <span>{{ stream.game_name }}</span>
               <span v-for="tag in stream.tags" :key="tag">{{ tag }}</span>
             </div>
           </div>

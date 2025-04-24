@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-import { VideoService } from '~/services/VideoService'
+import { formatNumber } from '~/composables/useFormat'
+import { TwitchService } from '~/services/TwitchService'
+
 import {
   Heart,
   Star,
@@ -21,12 +23,10 @@ const domain = ref('')
 
 onMounted(async () => {
   domain.value = window.location.hostname
-  const details = await new VideoService().getStreamDetails(route.params.id as string)
+  const details = await new TwitchService().getStreamDetails(route.params.id as string)
   if (details?.user_login) {
-    videoDetails.value = {
-      ...details,
-      tags: ['Español', 'DropsActivados'],
-    }
+    console.log(' Detalles:', details)
+    videoDetails.value = details
   } else {
     console.error('No se encontraron detalles del stream')
   }
@@ -78,8 +78,12 @@ const toggleSubscribe = () => {
             </h1>
 
             <p class="stream-title">{{ videoDetails.title }}</p>
+
             <div class="stream-tags">
               <span class="category">{{ videoDetails.game_name }}</span>
+            </div>
+
+            <div class="stream-tags">
               <span v-for="tag in videoDetails.tags" :key="tag" class="tag">
                 {{ tag }}
               </span>
@@ -109,8 +113,9 @@ const toggleSubscribe = () => {
             </div>
             <div class="icons">
               <span class="icon red-icon">
-                <User :size="16" /> {{ videoDetails.viewer_count }}
+                <User :size="16" /> {{ formatNumber(videoDetails.viewer_count) }}
               </span>
+
               <span class="icon"><Clock3 :size="16" /> 3:23:05</span>
               <span class="icon"><ArrowUpRightFromSquare :size="16" /></span>
               <span class="icon"><MoreVertical :size="16" /></span>
@@ -121,8 +126,8 @@ const toggleSubscribe = () => {
         <h2 class="about-heading">Acerca de {{ videoDetails.user_name }}</h2>
         <div class="about">
           <p class="followers">
-            {{ videoDetails.followers.toLocaleString() }}
-            <span v-if="videoDetails.followers > 0">seguidores</span>
+            {{ formatNumber(videoDetails.followers) }}
+            <span> followers</span>
           </p>
           <p class="description">
             {{ videoDetails.description || 'Sin descripción disponible.' }}
@@ -244,10 +249,11 @@ const toggleSubscribe = () => {
   color: #1e61cc;
 }
 .tag {
-  background: #1f1f23;
-  padding: 0.3rem 0.75rem;
+  background: #2c2c2c;
+  padding: 0.2rem 0.5rem;
+  border-radius: 1rem;
   font-size: 0.75rem;
-  color: #e5e5e5;
+  color: #eee;
 }
 
 .stream-actions {

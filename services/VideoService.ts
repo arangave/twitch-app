@@ -1,4 +1,4 @@
-export class VideoService {
+/*export class VideoService {
   private clientId = 'kd4lovlti8kahhazcqw5azpmi0j2te'
   private accessToken = 'wt592jrab2wibo7e8e1aulhir0eub5'
 
@@ -59,7 +59,10 @@ export class VideoService {
         ...user,
         tags,
         followers,
+        user_login: user.login,
+        is_verified: ['midudev', 'xqc', 'ibai', 'auronplay', 'elrubius'].includes(user.login.toLowerCase()),
       }
+      
     } catch (error) {
       console.error(' Error al obtener los detalles del stream:', error)
       return null
@@ -70,3 +73,4 @@ export class VideoService {
     return `https://player.twitch.tv/?channel=${userName}&autoplay=true&parent=localhost`
   }
 }
+*/

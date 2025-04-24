@@ -46,7 +46,12 @@ const showContent = computed(() => {
   display: flex;
   flex: 1;
   overflow: hidden;
+
+  max-width: 120rem;
+  margin: 0 auto;
+  width: 100%;
 }
+
 .main-content {
   flex: 1;
   overflow-y: auto;

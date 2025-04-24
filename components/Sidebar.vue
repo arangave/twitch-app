@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import { defineProps, ref, onMounted } from 'vue'
 import { TwitchService } from '~/services/TwitchService'
-
-function formatViewers(count: number): string {
-  if (count >= 1_000_000) return `${(count / 1_000_000).toFixed(1)}M`
-  if (count >= 1_000) return `${(count / 1_000).toFixed(1)}K`
-  return count.toString()
-}
+import { formatNumber } from '~/composables/useFormat'
 
 const props = defineProps<{ collapsed?: boolean }>()
 const emit = defineEmits<{ (e: 'toggle'): void }>()
@@ -16,7 +11,7 @@ const twitchService = new TwitchService()
 
 onMounted(async () => {
   try {
-    channels.value = await twitchService.getStreams(10)
+    channels.value = await twitchService.getStreams(8)
   } catch (e) {
     console.error('Error al cargar canales en vivo:', e)
   }
@@ -62,7 +57,7 @@ onMounted(async () => {
 
           <div v-if="!props.collapsed" class="sidebar__viewers">
             <span class="sidebar__live-dot" />
-            <span>{{ formatViewers(channel.viewer_count) }}</span>
+            <span>{{ formatNumber(channel.viewer_count) }}</span>
           </div>
         </NuxtLink>
       </li>
