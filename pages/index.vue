@@ -3,30 +3,20 @@ import { ref, onMounted } from 'vue'
 import { TwitchService } from '~/services/TwitchService'
 import LiveChannels from '~/components/LiveChannels.vue'
 import Categories from '~/components/Categories.vue'
-import Header from '~/components/Header.vue'
-import Sidebar from '~/components/Sidebar.vue'
 
-const streams = ref([])
-const collapsed = ref(false)
+const streams = ref<any[]>([])
 const twitchService = new TwitchService()
 
 onMounted(async () => {
   streams.value = await twitchService.getStreams(50)
 })
-
 </script>
 
 <template>
-  <div class="page">
-    <Header />
-    <div :class="['layout', { collapsed }]">
-      <Sidebar :collapsed="collapsed" @toggle="collapsed = !collapsed" />
-      <main class="main-content">
-        <LiveChannels :streams="streams" :collapsed="collapsed" />
-        <Categories />
-      </main>
-    </div>
-  </div>
+  <LiveChannels :streams="streams" />
+  <Categories />
+  <LiveChannels :streams="streams" />
+  <LiveChannels :streams="streams" />
 </template>
 
 <style scoped lang="scss">
@@ -47,7 +37,7 @@ onMounted(async () => {
 .main-content {
   flex: 1;
   overflow-y: auto;
-  padding: 2rem;
-  transition: all 0.3s ease;
+  padding: 2rem 2rem 2rem 2rem;
+  transition: all 0.3s;
 }
 </style>

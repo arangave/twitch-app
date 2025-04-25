@@ -1,9 +1,11 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+// nuxt.config.ts
+import { defineNuxtConfig } from 'nuxt/config'
 import tsconfigPaths from 'vite-tsconfig-paths'
+import { resolve } from 'path'
 
 export default defineNuxtConfig({
-  devtools: { enabled: true },
-  compatibilityDate: '2024-11-01',
+  css: ['~/assets/styles/resets.css'],
+
   modules: [
     '@nuxt/eslint',
     '@nuxt/fonts',
@@ -12,10 +14,31 @@ export default defineNuxtConfig({
     '@nuxt/scripts',
     '@nuxt/test-utils',
   ],
+
+  app: {
+    head: {
+      script: [
+        {
+          src: 'https://player.twitch.tv/js/embed/v1.js',
+          async: true,
+        },
+      ],
+    },
+  },
+
   vite: {
-    plugins: [tsconfigPaths()],
+    plugins: [tsconfigPaths({ ignoreConfigErrors: true })],
     define: {
       'process.env.DEBUG': false,
     },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: '@use "~/assets/styles/main.scss";',
+        },
+      },
+    },
   },
+
+  compatibilityDate: '2025-04-23',
 })
