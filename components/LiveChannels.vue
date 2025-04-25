@@ -107,12 +107,7 @@ onMounted(() => {
             <p class="stream-card__title">{{ stream.title }}</p>
             <p class="stream-card__user">
               {{ stream.user_name }}
-              <img
-                v-if="stream.is_verified"
-                src="/iconos/verificado.png"
-                class="verified-icon"
-                alt="Verificado"
-              />
+              <img src="/iconos/verificado.png" class="verified-icon" alt="Verificado" />
             </p>
             <div class="stream-card__tags">
               <span v-for="tag in stream.tags" :key="tag">{{ tag }}</span>

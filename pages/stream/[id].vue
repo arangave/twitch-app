@@ -69,12 +69,7 @@ const toggleSubscribe = () => {
           <div class="stream-meta">
             <h1 class="stream-name">
               {{ videoDetails.user_name }}
-              <img
-                v-if="videoDetails.is_verified"
-                src="/iconos/verificado.png"
-                class="verified-icon"
-                alt="Verificado"
-              />
+              <img src="/iconos/verificado.png" class="verified-icon" alt="Verificado" />
             </h1>
 
             <p class="stream-title">{{ videoDetails.title }}</p>
@@ -162,13 +157,12 @@ const toggleSubscribe = () => {
 .stream-page {
   background: #0e0e10;
   color: #fff;
-  padding: 2rem;
+  padding: 1rem 1rem;
 }
 
 .stream-layout {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
 }
 
 @media (min-width: 64em) {
