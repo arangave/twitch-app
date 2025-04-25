@@ -124,7 +124,7 @@ onMounted(() => {
     <div class="show-more-wrapper" @click="toggleShow">
       <hr class="divider" />
       <div class="show-more">
-        <span>{{ showAll ? 'Mostrar menos' : 'Mostrar más' }}</span>
+        <span>{{ showAll ? 'Show less' : 'Show more' }}</span>
         <img src="/iconos/Vector10.png" :class="{ rotated: showAll }" alt="Toggle" />
       </div>
       <hr class="divider" />
@@ -136,7 +136,7 @@ onMounted(() => {
 .live-section {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.625rem;
 }
 .live-title {
   font-size: 1.25rem;
@@ -150,7 +150,7 @@ onMounted(() => {
 }
 .grid-streams {
   display: grid;
-  gap: 1.5rem;
+  gap: 2.313rem;
   grid-template-columns: repeat(1, 1fr);
   @media (min-width: 48rem) {
     grid-template-columns: repeat(2, 1fr);
@@ -166,7 +166,7 @@ onMounted(() => {
 }
 .stream-card {
   background: #0e0e10;
-  border-radius: 0.5rem;
+
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -235,7 +235,7 @@ onMounted(() => {
       padding: 0.2rem 0.5rem;
       border-radius: 1rem;
       font-size: 0.75rem;
-      color: #eee;
+      color: #aaa;
     }
   }
 }

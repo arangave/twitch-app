@@ -76,34 +76,4 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 
 
 
-estructura semnatica: 
-emmet: 
-seo: 
-tamaño por defecto: 
-espacios :
-custompropierties: 
-especificidad: 
-reset.css :
-mixin: 
-bem: 
-nesting:
-namingcase: 
-var: 
-let: 
-const:
-magic strings: 
-solid: 
-dry: 
-early retaurn:
-deuda tecnica:
-hosting:
-typescript:
-t:
-sfc:
-reactividad:
-directivas:
-provide+inject:
-composables: nusxt vs vue:
-modulos de nuxt
-layouts:
-middleware:
+

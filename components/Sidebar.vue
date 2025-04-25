@@ -68,8 +68,8 @@ onMounted(async () => {
 
 <style scoped lang="scss">
 .sidebar {
-  width: 20rem;
-  min-width: 20rem;
+  width: 18.25rem;
+  min-width: 16.25rem;
   background: #0e0e10;
   padding: 1rem;
   color: #fff;
@@ -216,5 +216,20 @@ onMounted(async () => {
   height: 0.85rem;
   margin-left: 0.2rem;
   vertical-align: middle;
+}
+.sidebar__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  p {
+    margin: 0;
+    line-height: 1.1;
+  }
+
+  .sidebar__name {
+    margin-bottom: 0.4rem;
+  }
 }
 </style>

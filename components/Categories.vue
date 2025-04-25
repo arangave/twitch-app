@@ -118,7 +118,7 @@ const featured = [
   background: #0e0e10;
   border-radius: 0.5rem;
   overflow: hidden;
-  text-align: center;
+
   transition:
     box-shadow 0.3s,
     transform 0.3s;
@@ -168,54 +168,53 @@ const featured = [
 
 .featured-categories {
   display: flex;
+
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 0.5rem;
-  margin: 2rem 0;
-  max-width: 100%;
+  gap: 1.5rem;
+  margin: 1rem 0;
+  padding-right: 0.5rem;
   margin-inline: auto;
-  padding-inline: 1rem;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
 }
 
 .featured-category {
-  width: 240px;
-  height: 50px;
+  width: 16.25rem;
+  height: 3.3125rem;
+  border-radius: 1.5rem;
   background: #1e61cc;
-  border-radius: 8px;
+  border-radius: 0.375rem;
   color: white;
-  font-weight: 600;
+  font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 10px;
-  font-size: 1.05rem;
+  padding-right: 0.5rem;
+  font-size: 1.35rem;
   transition:
     background-color 0.3s ease,
     transform 0.2s ease,
     width 0.3s ease;
 
   span {
-    margin-left: 0.1rem;
+    padding-left: 0.913rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
   img {
-    width: 65px;
-    height: 65px;
+    width: 4.313rem;
+    height: 4.313rem;
     object-fit: contain;
   }
 
   &:hover {
     background: #1d3b77;
     transform: translateY(-2px);
-  }
-
-  @media (min-width: 1024px) {
-    .featured-categories.sidebar-open & {
-      width: 200px;
-    }
   }
 
   @media (max-width: 768px) {
@@ -228,8 +227,8 @@ const featured = [
     }
 
     img {
-      width: 50px;
-      height: 50px;
+      width: 4.063;
+      height: 4.063;
     }
   }
 }

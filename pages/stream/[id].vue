@@ -267,6 +267,7 @@ const toggleSubscribe = () => {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
+  justify-content: center;
 }
 .btn {
   padding: 0.4rem 1rem;
