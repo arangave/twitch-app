@@ -23,32 +23,38 @@ onMounted(async () => {
 <template>
   <header class="header">
     <div class="header__left">
-      <img src="/iconos/logo_twitch.png" alt="Midutch logo" class="header__logo" />
+      <img :src="`/iconos/logo_twitch.png`" alt="Midutch logo" class="header__logo" />
       <NuxtLink to="/" class="header__title">MIDUTCH</NuxtLink>
     </div>
 
-    <!-- Buscador solo visible en desktop -->
     <div class="header__search-wrapper desktop-search">
       <input type="text" placeholder="Search" class="header__search-input" />
       <button class="header__search-icon" type="button">
-        <img src="/iconos/search.png" alt="Search" />
+        <img :src="`/iconos/search.png`" alt="Search" />
       </button>
     </div>
 
     <div class="header__right">
       <div class="header__menu-icons">
         <div class="header__notification-wrapper">
-          <img src="/notification.png" alt="Notifications" class="header__icon" />
+          <img
+            :src="`/iconos/notification.png`"
+            alt="Notifications"
+            class="header__icon"
+          />
           <span v-if="notificationCount > 0" class="notification-badge">{{
             notificationCount
           }}</span>
         </div>
         <button class="header__login">Log in</button>
         <button class="header__signup">Sign up</button>
-        <img src="/profile.png" alt="Profile" class="header__icon header__profile" />
+        <img
+          :src="`/iconos/profile.png`"
+          alt="Profile"
+          class="header__icon header__profile"
+        />
       </div>
 
-      <!-- Botón hamburguesa -->
       <button
         class="hamburger"
         :class="{ active: isMobileMenuOpen }"
@@ -59,19 +65,17 @@ onMounted(async () => {
     </div>
   </header>
 
-  <!-- Menú móvil desplegable -->
   <div v-if="isMobileMenuOpen" class="mobile-menu">
     <div class="mobile-menu__actions">
-      <!-- Buscador dentro del menú hamburguesa -->
       <div class="header__search-wrapper mobile-search">
         <input type="text" placeholder="Search" class="header__search-input" />
         <button class="header__search-icon" type="button">
-          <img src="/iconos/search.png" alt="Search" />
+          <img :src="`/iconos/search.png`" alt="Search" />
         </button>
       </div>
 
       <div class="header__notification-wrapper">
-        <img src="/notification.png" alt="Notifications" class="header__icon" />
+        <img :src="`/iconos/notification.png`" alt="Notifications" class="header__icon" />
         <span v-if="notificationCount > 0" class="notification-badge">{{
           notificationCount
         }}</span>
@@ -80,7 +84,11 @@ onMounted(async () => {
       <button class="header__login">Log in</button>
       <button class="header__signup">Sign up</button>
 
-      <img src="/profile.png" alt="Profile" class="header__icon header__profile" />
+      <img
+        :src="`/iconos/profile.png`"
+        alt="Profile"
+        class="header__icon header__profile"
+      />
     </div>
   </div>
 </template>

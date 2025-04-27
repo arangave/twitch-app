@@ -162,13 +162,13 @@ const toggleSubscribe = () => {
 .stream-page {
   background: #0e0e10;
   color: #fff;
-  padding: 2rem;
+  padding: 1rem 1rem;
+  gap: 0.5rem;
 }
 
 .stream-layout {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
 }
 
 @media (min-width: 64em) {
@@ -373,5 +373,41 @@ const toggleSubscribe = () => {
   height: 1rem;
   margin-left: 0.4rem;
   vertical-align: middle;
+}
+@media (max-width: 768px) {
+  .stream-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .stream-tags {
+    justify-content: center;
+  }
+
+  .buttons {
+    justify-content: center;
+  }
+
+  .stream-actions {
+    width: 100%;
+    align-items: center;
+  }
+}
+@media (max-width: 768px) {
+  .about {
+    padding: 1rem;
+    text-align: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  .description {
+    font-size: 0.85rem;
+    margin: 0.5rem 0;
+    max-width: 100%;
+    word-break: break-word;
+  }
 }
 </style>
