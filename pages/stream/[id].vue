@@ -188,7 +188,7 @@ const toggleSubscribe = () => {
   background: #000;
   border-radius: 0.5rem;
   overflow: hidden;
-  height: 28rem;
+  height: 29rem;
 }
 
 .stream-header {
