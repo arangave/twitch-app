@@ -24,8 +24,8 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background-color: #0e0e10;
-  color: #fff;
+  background-color: $background-dark;
+  color: $text-light;
 }
 
 .layout {
@@ -37,7 +37,7 @@ onMounted(async () => {
 .main-content {
   flex: 1;
   overflow-y: auto;
-  padding: 2rem 2rem 2rem 2rem;
+  padding: 1rem 1rem;
   transition: all 0.3s;
 }
 </style>

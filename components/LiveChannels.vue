@@ -74,6 +74,7 @@ onMounted(() => {
     <h2 class="live-title">
       <span class="live-title--blue">Live channels</span> we think you’ll like
     </h2>
+
     <div :class="['grid-streams', { collapsed: isCollapsed }]">
       <div v-for="stream in visibleStreams" :key="stream.id" class="stream-card">
         <div
@@ -116,6 +117,7 @@ onMounted(() => {
         </div>
       </div>
     </div>
+
     <div class="show-more-wrapper" @click="toggleShow">
       <hr class="divider" />
       <div class="show-more">
@@ -133,44 +135,50 @@ onMounted(() => {
   flex-direction: column;
   gap: 0.625rem;
 }
+
 .live-title {
   font-size: 1.25rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
-  color: #fff;
+  color: $text-light;
+
   &--blue {
-    color: #1e61cc;
+    color: $primary-color;
     font-weight: 600;
   }
 }
+
 .grid-streams {
   display: grid;
   gap: 2.313rem;
   grid-template-columns: repeat(1, 1fr);
+
   @media (min-width: 48rem) {
     grid-template-columns: repeat(2, 1fr);
   }
   @media (min-width: 64rem) {
     grid-template-columns: repeat(3, 1fr);
   }
+
   &.collapsed {
     @media (min-width: 64rem) {
       grid-template-columns: repeat(4, 1fr);
     }
   }
 }
-.stream-card {
-  background: #0e0e10;
 
+.stream-card {
+  background: $background-dark;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   transition:
     box-shadow 0.3s ease,
     transform 0.3s ease;
+
   &:hover {
-    box-shadow: 0 0 10px 2px #1e61cc;
-    transform: translateY(-2px);
+    box-shadow: 0 0 0.625rem 0.125rem $primary-color;
+    transform: translateY(-0.125rem);
   }
 
   &__preview-wrapper {
@@ -178,6 +186,7 @@ onMounted(() => {
     aspect-ratio: 16/9;
     background: #000;
   }
+
   &__iframe,
   &__preview {
     width: 100%;
@@ -185,55 +194,64 @@ onMounted(() => {
     object-fit: cover;
     display: block;
   }
+
   &__info {
     display: flex;
     padding: 0.5rem 0.75rem;
     gap: 0.5rem;
   }
+
   &__avatar {
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
     object-fit: cover;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
   }
+
   &__details {
     flex: 1;
     display: flex;
     flex-direction: column;
-    margin-bottom: 0.5rem;
+    gap: 0.3rem; // 🔥 añadido espacio entre título, usuario y tags
   }
+
   &__title {
     font-weight: 600;
     font-size: 0.9rem;
-    color: #fff;
+    color: $text-light;
     line-height: 1.2;
   }
+
   &__user {
-    margin-top: -0.2rem;
-    color: #aaa;
+    margin-top: 0.2rem;
+    color: $text-muted;
     font-size: 0.8rem;
     display: flex;
     align-items: center;
     gap: 0.4rem;
   }
+
   .verified-icon {
     width: 0.8rem;
     height: 0.8rem;
   }
+
   &__tags {
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
+
     span {
-      background: #2c2c2c;
+      background: $background-button;
       padding: 0.2rem 0.5rem;
       border-radius: 1rem;
       font-size: 0.75rem;
-      color: #aaa;
+      color: $text-muted;
     }
   }
 }
+
 .show-more-wrapper {
   display: flex;
   align-items: center;
@@ -241,20 +259,23 @@ onMounted(() => {
   margin-top: 2rem;
   cursor: pointer;
 }
+
 .divider {
   flex: 1;
   height: 0.05rem;
-  background: #555;
+  background: $border-light; // ✅ CORREGIDO aquí
   border: none;
 }
+
 .show-more {
   display: flex;
   align-items: center;
   gap: 0.4rem;
   font-size: 0.95rem;
   font-weight: 600;
-  color: #1e61cc;
+  color: $primary-color;
   white-space: nowrap;
+
   img {
     width: 0.75rem;
     height: 0.75rem;
@@ -262,6 +283,7 @@ onMounted(() => {
     filter: brightness(0) invert(1);
   }
 }
+
 .rotated {
   transform: rotate(180deg);
 }
