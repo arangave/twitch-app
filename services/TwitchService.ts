@@ -1,7 +1,6 @@
 export class TwitchService {
   private clientId = 'kd4lovlti8kahhazcqw5azpmi0j2te'
   private accessToken = 'wt592jrab2wibo7e8e1aulhir0eub5'
-
   private verifiedUsers = ['midudev', 'xqc', 'ibai', 'auronplay', 'elrubius']
 
   private get headers() {
@@ -12,16 +11,11 @@ export class TwitchService {
   }
 
   async getStreams(limit = 50) {
-    const response = await fetch('https://api.twitch.tv/helix/streams?first=100', {
+    const res = await fetch('https://api.twitch.tv/helix/streams?first=100', {
       headers: this.headers,
     })
-
-    if (!response.ok) {
-      throw new Error('Error al obtener streams en vivo')
-    }
-
-    const data = await response.json()
-
+    if (!res.ok) throw new Error('Error al obtener streams en vivo')
+    const data = await res.json()
     return data.data
       .filter((s: any) => s.language === 'es')
       .sort((a: any, b: any) => b.viewer_count - a.viewer_count)
@@ -29,76 +23,49 @@ export class TwitchService {
   }
 
   async getRecommendedChannels(limit = 10) {
-    const response = await fetch(`https://api.twitch.tv/helix/streams?first=${limit}`, {
+    const res = await fetch(`https://api.twitch.tv/helix/streams?first=${limit}`, {
       headers: this.headers,
     })
-
-    if (!response.ok) {
-      throw new Error('Error al obtener canales recomendados')
-    }
-
-    const data = await response.json()
-
-    return data.data.map((channel: any) => {
-      const userName = channel.user_name?.toLowerCase() || ''
-      return {
-        ...channel,
-        user_login: channel.user_login || userName,
-        is_verified: this.verifiedUsers.includes(userName),
-      }
-    })
+    if (!res.ok) throw new Error('Error al obtener canales recomendados')
+    const data = await res.json()
+    return data.data.map((c: any) => ({
+      ...c,
+      user_login: c.user_login || c.user_name?.toLowerCase() || '',
+      is_verified: this.verifiedUsers.includes((c.user_name || '').toLowerCase()),
+    }))
   }
 
   async getTopCategoriesWithViewers(limit = 20) {
-    const gamesResponse = await fetch(
-      `https://api.twitch.tv/helix/games/top?first=${limit}`,
-      { headers: this.headers },
-    )
-
-    if (!gamesResponse.ok) {
-      throw new Error('Error al obtener categorías')
-    }
-
-    const gamesData = await gamesResponse.json()
-    const games = gamesData.data
-
-    const streamsResponse = await fetch('https://api.twitch.tv/helix/streams?first=100', {
+    const gamesRes = await fetch(`https://api.twitch.tv/helix/games/top?first=${limit}`, {
       headers: this.headers,
     })
+    if (!gamesRes.ok) throw new Error('Error al obtener categorías')
+    const games = (await gamesRes.json()).data
 
-    if (!streamsResponse.ok) {
-      throw new Error('Error al obtener streams')
-    }
-
-    const streamsData = await streamsResponse.json()
-    const streams = streamsData.data
-
-    const viewerCountPerGame: Record<string, number> = {}
-
-    streams.forEach((stream: any) => {
-      if (viewerCountPerGame[stream.game_id]) {
-        viewerCountPerGame[stream.game_id] += stream.viewer_count
-      } else {
-        viewerCountPerGame[stream.game_id] = stream.viewer_count
-      }
+    const streamsRes = await fetch('https://api.twitch.tv/helix/streams?first=100', {
+      headers: this.headers,
     })
+    if (!streamsRes.ok) throw new Error('Error al obtener streams')
+    const streams = (await streamsRes.json()).data
 
-    return games.map((game: any) => {
-      const lowerName = game.name.toLowerCase()
+    const viewers: Record<string, number> = {}
+    streams.forEach(
+      (s: any) => (viewers[s.game_id] = (viewers[s.game_id] || 0) + s.viewer_count),
+    )
+
+    return games.map((g: any) => {
+      const name = g.name.toLowerCase()
       let tag = 'Gaming'
-      if (lowerName.includes('chat')) tag = 'IRL'
-      else if (lowerName.includes('simulator')) tag = 'Simulation'
-      else if (lowerName.includes('software') || lowerName.includes('dev'))
-        tag = 'Software'
-      else if (lowerName.includes('music')) tag = 'Music'
+      if (name.includes('chat')) tag = 'IRL'
+      else if (name.includes('simulator')) tag = 'Simulation'
+      else if (name.includes('software') || name.includes('dev')) tag = 'Software'
+      else if (name.includes('music')) tag = 'Music'
 
       return {
-        id: game.id,
-        name: game.name,
-        viewer_count: viewerCountPerGame[game.id] || 0,
-        box_art_url: game.box_art_url
-          .replace('{width}', '200')
-          .replace('{height}', '270'),
+        id: g.id,
+        name: g.name,
+        viewer_count: viewers[g.id] || 0,
+        box_art_url: g.box_art_url.replace('{width}', '200').replace('{height}', '270'),
         tag,
       }
     })
@@ -110,49 +77,33 @@ export class TwitchService {
         `https://api.twitch.tv/helix/users?login=${userLogin}`,
         { headers: this.headers },
       )
-      const userData = await userRes.json()
-      const user = userData.data?.[0]
+      const user = (await userRes.json()).data?.[0]
       if (!user) throw new Error('Usuario no encontrado')
 
-      const streamRes = await fetch(
-        `https://api.twitch.tv/helix/streams?user_id=${user.id}`,
-        { headers: this.headers },
-      )
-      const streamData = await streamRes.json()
-      const stream = streamData.data?.[0] || {}
-
-      // Obtener tags desde el canal, no desde /streams/tags
-      let tags: string[] = []
-      try {
-        const channelRes = await fetch(
-          `https://api.twitch.tv/helix/channels?broadcaster_id=${user.id}`,
-          { headers: this.headers },
-        )
-        const channelData = await channelRes.json()
-        tags = channelData.data?.[0]?.tags || []
-      } catch (e) {
-        console.warn('No se pudieron obtener los tags del canal')
-      }
-
-      let followers = 0
-      try {
-        const followersRes = await fetch(
+      const [streamRes, channelRes, followersRes] = await Promise.all([
+        fetch(`https://api.twitch.tv/helix/streams?user_id=${user.id}`, {
+          headers: this.headers,
+        }),
+        fetch(`https://api.twitch.tv/helix/channels?broadcaster_id=${user.id}`, {
+          headers: this.headers,
+        }),
+        fetch(
           `https://api.twitch.tv/helix/channels/followers?broadcaster_id=${user.id}`,
           { headers: this.headers },
-        )
-        const followersData = await followersRes.json()
-        followers = followersData.total || 0
-      } catch {
-        console.warn('No se pudieron obtener seguidores.')
-      }
+        ),
+      ])
+
+      const stream = (await streamRes.json()).data?.[0] || {}
+      const tags = (await channelRes.json()).data?.[0]?.tags || []
+      const followers = (await followersRes.json()).total || 0
 
       return {
         ...user,
         ...stream,
-        followers,
         user_login: user.login,
         is_verified: this.verifiedUsers.includes(user.login.toLowerCase()),
         tags,
+        followers,
       }
     } catch (error) {
       console.error('Error al obtener detalles del canal:', error)

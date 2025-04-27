@@ -5,7 +5,6 @@ import { formatNumber } from '~/composables/useFormat'
 
 const props = defineProps<{ collapsed?: boolean }>()
 const emit = defineEmits<{ (e: 'toggle'): void }>()
-
 const channels = ref<any[]>([])
 const twitchService = new TwitchService()
 
@@ -52,7 +51,6 @@ onMounted(async () => {
                 class="verified-icon"
               />
             </p>
-
             <p class="sidebar__category">{{ channel.game_name }}</p>
           </div>
 
@@ -87,13 +85,11 @@ onMounted(async () => {
   &.collapsed {
     width: 4rem;
     min-width: 4rem;
-
     .sidebar__title,
     .sidebar__info,
     .sidebar__viewers {
       display: none;
     }
-
     .sidebar__item {
       justify-content: flex-start;
       padding: 0.3rem 0.4rem;
@@ -107,14 +103,12 @@ onMounted(async () => {
     margin-bottom: 1rem;
     padding-top: 1rem;
   }
-
   &__title {
     font-size: 0.85rem;
     font-weight: 600;
     color: $text-muted;
     margin: 0;
   }
-
   &__collapse {
     width: 1.2rem;
     height: 1.2rem;
@@ -123,19 +117,16 @@ onMounted(async () => {
     filter: brightness(0) invert(1);
     transition: filter 0.2s;
     margin-left: auto;
-
     &.rotated {
       transform: rotate(180deg);
       transition: transform 0.3s;
     }
   }
-
   &__list {
     list-style: none;
     padding: 0;
     margin: 0;
   }
-
   &__item {
     display: flex;
     align-items: center;
@@ -149,35 +140,29 @@ onMounted(async () => {
     transition: background 0.2s;
     text-decoration: none;
     color: inherit;
-
     &:hover {
       background: $primary-color;
     }
   }
-
   &__avatar {
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
     object-fit: cover;
   }
-
   &__info {
     flex: 1;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-
     p {
       margin: 0;
       line-height: 1.1;
     }
-
     .sidebar__name {
       margin-bottom: 0.3rem;
     }
   }
-
   &__name {
     font-weight: 600;
     font-size: 0.8125rem;
@@ -186,7 +171,6 @@ onMounted(async () => {
     align-items: center;
     gap: 0.5rem;
   }
-
   &__category {
     font-size: 0.75rem;
     font-weight: 400;
@@ -195,7 +179,6 @@ onMounted(async () => {
     overflow: hidden;
     text-overflow: ellipsis;
   }
-
   &__viewers {
     font-size: 0.75rem;
     font-weight: 500;
@@ -205,7 +188,6 @@ onMounted(async () => {
     gap: 0.25rem;
     white-space: nowrap;
   }
-
   &__live-dot {
     width: 0.5rem;
     height: 0.5rem;

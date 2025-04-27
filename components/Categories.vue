@@ -87,7 +87,6 @@ const featured = [
   font-weight: 500;
   margin-bottom: 0.5rem;
   color: $text-light;
-
   &--blue {
     color: $primary-color;
     font-weight: 600;
@@ -98,14 +97,12 @@ const featured = [
   display: grid;
   gap: 1.5rem;
   grid-template-columns: repeat(2, 1fr);
-
   @media (min-width: 48rem) {
     grid-template-columns: repeat(3, 1fr);
   }
   @media (min-width: 64rem) {
     grid-template-columns: repeat(6, 1fr);
   }
-
   &.collapsed {
     @media (min-width: 64rem) {
       grid-template-columns: repeat(8, 1fr);
@@ -135,11 +132,9 @@ const featured = [
     object-fit: cover;
     border-bottom: 0.0625rem solid $background-dark;
   }
-
   &__info {
     padding: 0.5rem;
   }
-
   &__name {
     font-weight: 600;
     font-size: 0.9rem;
@@ -149,13 +144,11 @@ const featured = [
     text-overflow: ellipsis;
     margin-bottom: 0.4rem;
   }
-
   &__viewers {
     color: $text-muted;
     font-size: 0.8rem;
     margin-top: 0;
   }
-
   &__tag {
     color: $text-light;
     font-size: 0.75rem;
@@ -214,7 +207,6 @@ const featured = [
     overflow: hidden;
     text-overflow: ellipsis;
   }
-
   img {
     width: 4rem;
     height: 4rem;
@@ -232,7 +224,6 @@ const featured = [
     height: 2.4rem;
     padding: 0 0.6rem;
     align-items: center;
-
     img {
       width: 3.2rem;
       height: 3.2rem;
