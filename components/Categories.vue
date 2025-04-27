@@ -66,7 +66,6 @@ const featured = [
     </section>
   </section>
 </template>
-
 <style scoped lang="scss">
 .categories-wrapper {
   max-width: 100%;
@@ -97,6 +96,7 @@ const featured = [
   display: grid;
   gap: 1.5rem;
   grid-template-columns: repeat(2, 1fr);
+
   @media (min-width: 48rem) {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -118,7 +118,6 @@ const featured = [
   background: #0e0e10;
   border-radius: 0.5rem;
   overflow: hidden;
-
   transition:
     box-shadow 0.3s,
     transform 0.3s;
@@ -146,12 +145,13 @@ const featured = [
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-bottom: 0.4rem;
   }
 
   &__viewers {
     color: #aaa;
     font-size: 0.8rem;
-    margin-top: -0.2rem;
+    margin-top: 0;
   }
 
   &__tag {
@@ -167,24 +167,33 @@ const featured = [
 }
 
 .featured-categories {
-  display: flex;
-
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
   gap: 1.5rem;
   margin: 1rem 0;
-  padding-right: 0.5rem;
-  margin-inline: auto;
+  width: 100%;
+  padding: 0;
+  justify-content: center;
+
+  &.sidebar-open {
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    gap: 1rem;
+    justify-content: center;
+  }
 
   @media (max-width: 768px) {
+    grid-template-columns: none;
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
+    gap: 1rem;
   }
 }
 
 .featured-category {
-  width: 16.25rem;
+  width: 100%;
+  max-width: 16rem;
   height: 3.3125rem;
-  border-radius: 1.5rem;
   background: #1e61cc;
   border-radius: 0.375rem;
   color: white;
@@ -192,23 +201,21 @@ const featured = [
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-right: 0.5rem;
-  font-size: 1.35rem;
+  padding: 0 0.8rem;
+  font-size: 1.2rem;
   transition:
     background-color 0.3s ease,
-    transform 0.2s ease,
-    width 0.3s ease;
+    transform 0.2s ease;
 
   span {
-    padding-left: 0.913rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
   img {
-    width: 4.313rem;
-    height: 4.313rem;
+    width: 4rem;
+    height: 4rem;
     object-fit: contain;
   }
 
@@ -217,18 +224,16 @@ const featured = [
     transform: translateY(-2px);
   }
 
-  @media (max-width: 768px) {
-    font-size: 0.95rem;
-
-    span {
-      white-space: normal;
-      text-overflow: unset;
-      overflow: visible;
-    }
+  @include respond('mobile') {
+    font-size: 1rem;
+    max-width: 14rem;
+    height: 2.4rem;
+    padding: 0 0.6rem;
+    align-items: center;
 
     img {
-      width: 4.063;
-      height: 4.063;
+      width: 3.2rem;
+      height: 3.2rem;
     }
   }
 }
