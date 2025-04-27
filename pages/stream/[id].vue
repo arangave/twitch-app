@@ -69,7 +69,12 @@ const toggleSubscribe = () => {
           <div class="stream-meta">
             <h1 class="stream-name">
               {{ videoDetails.user_name }}
-              <img src="/iconos/verificado.png" class="verified-icon" alt="Verificado" />
+              <img
+                v-if="videoDetails.is_verified"
+                src="/iconos/verificado.png"
+                class="verified-icon"
+                alt="Verificado"
+              />
             </h1>
 
             <p class="stream-title">{{ videoDetails.title }}</p>
@@ -158,6 +163,7 @@ const toggleSubscribe = () => {
   background: #0e0e10;
   color: #fff;
   padding: 1rem 1rem;
+  gap: 0.5rem;
 }
 
 .stream-layout {
@@ -367,5 +373,41 @@ const toggleSubscribe = () => {
   height: 1rem;
   margin-left: 0.4rem;
   vertical-align: middle;
+}
+@media (max-width: 768px) {
+  .stream-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .stream-tags {
+    justify-content: center;
+  }
+
+  .buttons {
+    justify-content: center;
+  }
+
+  .stream-actions {
+    width: 100%;
+    align-items: center;
+  }
+}
+@media (max-width: 768px) {
+  .about {
+    padding: 1rem;
+    text-align: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  .description {
+    font-size: 0.85rem;
+    margin: 0.5rem 0;
+    max-width: 100%;
+    word-break: break-word;
+  }
 }
 </style>
