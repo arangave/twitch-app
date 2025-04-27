@@ -13,16 +13,11 @@ type Stream = {
   tags: string[]
 }
 
-const props = defineProps<{
-  streams: Stream[]
-  collapsed?: boolean
-}>()
-
+const props = defineProps<{ streams: Stream[]; collapsed?: boolean }>()
 const isCollapsed = computed(() => props.collapsed ?? false)
-
 const hoveredId = ref<string | null>(null)
-let player: any = null
 const showAll = ref(false)
+let player: any = null
 
 const visibleStreams = computed(() => {
   const limit = showAll.value
@@ -33,9 +28,7 @@ const visibleStreams = computed(() => {
   return props.streams.slice(0, limit)
 })
 
-const toggleShow = () => {
-  showAll.value = !showAll.value
-}
+const toggleShow = () => (showAll.value = !showAll.value)
 
 const loadPlayer = (user_login: string, id: string) => {
   hoveredId.value = id
@@ -61,9 +54,10 @@ const unloadPlayer = () => {
 
 onMounted(() => {
   if (!(window as any).Twitch?.Player) {
-    const script = document.createElement('script')
-    script.src = 'https://player.twitch.tv/js/embed/v1.js'
-    script.async = true
+    const script = Object.assign(document.createElement('script'), {
+      src: 'https://player.twitch.tv/js/embed/v1.js',
+      async: true,
+    })
     document.body.appendChild(script)
   }
 })
@@ -130,6 +124,8 @@ onMounted(() => {
 </template>
 
 <style scoped lang="scss">
+@use '~/assets/styles/_variables' as *;
+
 .live-section {
   display: flex;
   flex-direction: column;
@@ -141,7 +137,6 @@ onMounted(() => {
   font-weight: 500;
   margin-bottom: 0.5rem;
   color: $text-light;
-
   &--blue {
     color: $primary-color;
     font-weight: 600;
@@ -152,14 +147,12 @@ onMounted(() => {
   display: grid;
   gap: 2.313rem;
   grid-template-columns: repeat(1, 1fr);
-
   @media (min-width: 48rem) {
     grid-template-columns: repeat(2, 1fr);
   }
   @media (min-width: 64rem) {
     grid-template-columns: repeat(3, 1fr);
   }
-
   &.collapsed {
     @media (min-width: 64rem) {
       grid-template-columns: repeat(4, 1fr);
@@ -186,7 +179,6 @@ onMounted(() => {
     aspect-ratio: 16/9;
     background: #000;
   }
-
   &__iframe,
   &__preview {
     width: 100%;
@@ -194,13 +186,11 @@ onMounted(() => {
     object-fit: cover;
     display: block;
   }
-
   &__info {
     display: flex;
     padding: 0.5rem 0.75rem;
     gap: 0.5rem;
   }
-
   &__avatar {
     width: 2rem;
     height: 2rem;
@@ -208,21 +198,18 @@ onMounted(() => {
     object-fit: cover;
     margin-top: 0.5rem;
   }
-
   &__details {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 0.3rem; // 🔥 añadido espacio entre título, usuario y tags
+    gap: 0.3rem;
   }
-
   &__title {
     font-weight: 600;
     font-size: 0.9rem;
     color: $text-light;
     line-height: 1.2;
   }
-
   &__user {
     margin-top: 0.2rem;
     color: $text-muted;
@@ -231,17 +218,14 @@ onMounted(() => {
     align-items: center;
     gap: 0.4rem;
   }
-
   .verified-icon {
     width: 0.8rem;
     height: 0.8rem;
   }
-
   &__tags {
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
-
     span {
       background: $background-button;
       padding: 0.2rem 0.5rem;
@@ -259,11 +243,10 @@ onMounted(() => {
   margin-top: 2rem;
   cursor: pointer;
 }
-
 .divider {
   flex: 1;
   height: 0.05rem;
-  background: $border-light; // ✅ CORREGIDO aquí
+  background: $border-light;
   border: none;
 }
 
@@ -275,7 +258,6 @@ onMounted(() => {
   font-weight: 600;
   color: $primary-color;
   white-space: nowrap;
-
   img {
     width: 0.75rem;
     height: 0.75rem;

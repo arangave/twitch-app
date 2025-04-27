@@ -4,8 +4,8 @@ import { TwitchService } from '~/services/TwitchService'
 
 const props = defineProps<{ streams: any[]; collapsed: boolean }>()
 const hoveredId = ref<string | null>(null)
-let player: any = null
 const showAll = ref(false)
+let player: any = null
 
 const visibleStreams = computed(() => {
   const limit = showAll.value
@@ -16,9 +16,7 @@ const visibleStreams = computed(() => {
   return props.streams.slice(0, limit)
 })
 
-const toggleShow = () => {
-  showAll.value = !showAll.value
-}
+const toggleShow = () => (showAll.value = !showAll.value)
 
 const loadPlayer = (user_login: string, id: string) => {
   hoveredId.value = id
@@ -44,9 +42,10 @@ const unloadPlayer = () => {
 
 onMounted(() => {
   if (!(window as any).Twitch?.Player) {
-    const script = document.createElement('script')
-    script.src = 'https://player.twitch.tv/js/embed/v1.js'
-    script.async = true
+    const script = Object.assign(document.createElement('script'), {
+      src: 'https://player.twitch.tv/js/embed/v1.js',
+      async: true,
+    })
     document.body.appendChild(script)
   }
 })
@@ -123,7 +122,6 @@ onMounted(() => {
   font-weight: 500;
   margin-bottom: 0.5rem;
   color: $text-light;
-
   &--blue {
     color: $primary-color;
     font-weight: 600;
@@ -134,14 +132,12 @@ onMounted(() => {
   display: grid;
   gap: 1.5rem;
   grid-template-columns: repeat(1, 1fr);
-
   @media (min-width: 48rem) {
     grid-template-columns: repeat(2, 1fr);
   }
   @media (min-width: 64rem) {
     grid-template-columns: repeat(3, 1fr);
   }
-
   &.collapsed {
     @media (min-width: 64rem) {
       grid-template-columns: repeat(4, 1fr);
@@ -160,7 +156,6 @@ onMounted(() => {
     width: 100%;
     aspect-ratio: 16/9;
   }
-
   &__iframe,
   &__preview {
     width: 100%;
@@ -168,13 +163,11 @@ onMounted(() => {
     object-fit: cover;
     display: block;
   }
-
   &__info {
     display: flex;
     padding: 0.5rem 0.75rem;
     gap: 0.5rem;
   }
-
   &__avatar {
     width: 2rem;
     height: 2rem;
@@ -182,39 +175,33 @@ onMounted(() => {
     object-fit: cover;
     margin-top: 0.5rem;
   }
-
   &__details {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 0.3rem; // 🔥 para separar título, user y tags
+    gap: 0.3rem;
   }
-
   &__title {
     font-weight: 600;
     font-size: 0.9rem;
     color: $text-light;
     line-height: 1.2;
   }
-
   &__user {
     color: $text-muted;
     font-size: 0.8rem;
     display: flex;
     align-items: center;
     gap: 0.4rem;
-
     .verified-icon {
       width: 0.8rem;
       height: 0.8rem;
     }
   }
-
   &__tags {
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
-
     span {
       background: $background-button;
       padding: 0.2rem 0.5rem;
@@ -235,7 +222,6 @@ onMounted(() => {
   font-size: 0.95rem;
   font-weight: 500;
   color: $primary-color;
-
   img {
     width: 0.75rem;
     height: 0.75rem;
