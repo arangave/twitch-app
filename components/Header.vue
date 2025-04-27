@@ -98,16 +98,19 @@ onMounted(async () => {
   width: 100%;
   @include flex-center;
   justify-content: space-between;
-  background: $background-dark;
-  padding: 0.5rem;
-  border-bottom: 1px solid $background-dark;
+  @include header-background;
+  padding: 0.2rem;
   flex-wrap: nowrap;
 
-  &__left,
+  &__left {
+    @include flex-center;
+    gap: 0.75rem;
+  }
+
   &__right {
     @include flex-center;
     gap: 0.75rem;
-    margin-right: 1.7rem;
+    margin-right: 0.5rem;
   }
 
   &__logo {
@@ -131,8 +134,8 @@ onMounted(async () => {
 
     .header__search-input {
       flex: 1;
-      background: #1c1c1f;
-      border: 1px solid #5e5e60;
+      background: $background-input;
+      border: 0.0625rem solid $secondary-color;
       border-radius: 0.5rem 0 0 0.5rem;
       padding: 0 1rem;
       color: $text-light;
@@ -143,8 +146,8 @@ onMounted(async () => {
 
     .header__search-icon {
       width: 2.125rem;
-      height: 2.5rem;
-      background: #2d2d30;
+      height: 2.4rem; // 🚨 Ahora con la misma altura que el input
+      background: $background-button;
       border: none;
       @include flex-center;
       border-radius: 0 0.5rem 0.5rem 0;
@@ -170,15 +173,17 @@ onMounted(async () => {
   }
 
   &__login {
-    @include button-style($bg-color: transparent, $text-color: $text-light);
-    border: 1px solid $primary-color;
+    @include button-style($background-light, $text-light);
+    border: none;
+    background: lighten($background-light, 10%);
+
     &:hover {
       background: $primary-color;
     }
   }
 
   &__signup {
-    @include button-style();
+    @include button-style($primary-color, $text-light);
   }
 
   &__notification-wrapper {
@@ -208,16 +213,17 @@ onMounted(async () => {
   flex-direction: column;
   justify-content: center;
   gap: 0.25rem;
-  width: 1.7rem;
+  width: 1.2rem;
   height: 1.5rem;
   background: none;
   border: none;
   cursor: pointer;
   z-index: 100;
+  margin-left: 1rem;
 
   span {
     display: block;
-    height: 2px;
+    height: 0.125rem;
     width: 100%;
     border-radius: 4rem;
     background-color: $text-light;
@@ -225,20 +231,20 @@ onMounted(async () => {
   }
 
   &.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
+    transform: rotate(45deg) translate(0.3125rem, 0.3125rem);
   }
   &.active span:nth-child(2) {
     opacity: 0;
   }
   &.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
+    transform: rotate(-45deg) translate(0.3125rem, -0.3125rem);
   }
 }
 
 .mobile-menu {
   background: $background-dark;
   padding: 1rem;
-  border-top: 1px solid $secondary-color;
+  border-top: 0.0625rem solid $secondary-color;
 }
 
 .mobile-menu__actions {
@@ -247,7 +253,7 @@ onMounted(async () => {
   gap: 1rem;
 }
 
-@include respond('mobile') {
+@media (max-width: 48rem) {
   .header {
     gap: 0.5rem;
     flex-wrap: nowrap;
@@ -280,8 +286,8 @@ onMounted(async () => {
 
     .header__search-input {
       flex: 1;
-      background: #1c1c1f;
-      border: 1px solid #5e5e60;
+      background: $background-input;
+      border: 0.0625rem solid $secondary-color;
       border-radius: 0.5rem 0 0 0.5rem;
       padding: 0 1rem;
       color: $text-light;
@@ -293,7 +299,7 @@ onMounted(async () => {
     .header__search-icon {
       width: 2.125rem;
       height: 2.5rem;
-      background: #2d2d30;
+      background: $background-button;
       border: none;
       @include flex-center;
       border-radius: 0 0.5rem 0.5rem 0;

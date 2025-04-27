@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps, ref, onMounted } from 'vue'
 import { TwitchService } from '~/services/TwitchService'
-import { formatNumber } from '~/composables/useFormat' // 💡 importa aquí
+import { formatNumber } from '~/composables/useFormat'
 
 const props = defineProps<{ collapsed?: boolean }>()
 const emit = defineEmits<{ (e: 'toggle'): void }>()
@@ -68,12 +68,12 @@ onMounted(async () => {
 
 <style scoped lang="scss">
 .sidebar {
-  width: 18.25rem;
-  min-width: 16.25rem;
-  background: #0e0e10;
+  width: 18rem;
+  min-width: 16rem;
+  background: $background-dark;
   padding: 1rem;
-  color: #fff;
-  border-right: 0.0625rem solid #0e0e10;
+  color: $text-light;
+  border-right: 0.0625rem solid $background-dark;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -85,8 +85,8 @@ onMounted(async () => {
   z-index: 10;
 
   &.collapsed {
-    width: 4.1rem;
-    min-width: 4.1rem;
+    width: 4rem;
+    min-width: 4rem;
 
     .sidebar__title,
     .sidebar__info,
@@ -104,14 +104,14 @@ onMounted(async () => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
     padding-top: 1rem;
   }
 
   &__title {
     font-size: 0.85rem;
     font-weight: 600;
-    color: #dedee3;
+    color: $text-muted;
     margin: 0;
   }
 
@@ -141,7 +141,7 @@ onMounted(async () => {
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    margin-bottom: 1.2rem;
+    margin-bottom: 1rem;
     padding: 0.3rem 0.4rem;
     width: 100%;
     border-radius: 0.25rem;
@@ -151,7 +151,7 @@ onMounted(async () => {
     color: inherit;
 
     &:hover {
-      background: #1e61cc;
+      background: $primary-color;
     }
   }
 
@@ -166,36 +166,40 @@ onMounted(async () => {
     flex: 1;
     display: flex;
     flex-direction: column;
-    overflow: auto;
+    overflow: hidden;
 
     p {
       margin: 0;
       line-height: 1.1;
     }
-  }
 
-  &__category {
-    font-size: 0.75rem;
-    font-weight: 400;
-    color: #adadb8;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    .sidebar__name {
+      margin-bottom: 0.3rem;
+    }
   }
 
   &__name {
     font-weight: 600;
     font-size: 0.8125rem;
-    color: #fff;
+    color: $text-light;
     display: flex;
     align-items: center;
     gap: 0.5rem;
   }
 
+  &__category {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: $text-muted;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   &__viewers {
     font-size: 0.75rem;
     font-weight: 500;
-    color: #fff;
+    color: $text-light;
     display: flex;
     align-items: center;
     gap: 0.25rem;
@@ -206,8 +210,8 @@ onMounted(async () => {
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 50%;
-    background: #e91916;
-    border: 0.125rem solid #0e0e10;
+    background: $danger-color;
+    border: 0.125rem solid $background-dark;
   }
 }
 
@@ -216,20 +220,5 @@ onMounted(async () => {
   height: 0.85rem;
   margin-left: 0.2rem;
   vertical-align: middle;
-}
-.sidebar__info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-
-  p {
-    margin: 0;
-    line-height: 1.1;
-  }
-
-  .sidebar__name {
-    margin-bottom: 0.4rem;
-  }
 }
 </style>

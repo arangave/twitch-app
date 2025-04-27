@@ -1,14 +1,30 @@
 
 $primary-color: #1e61cc;
-$secondary-color: #2c2c2c;
-$background-dark: #18181b;
+$secondary-color: #5e5e60;
+$danger-color: #ff4d4f;
+
+$background-dark: #0e0e10;
+$background-light: #1c1c1f;
+$background-button: #2d2d30;
+$background-input: #1c1c1f;
+
+$header-background-color: #18181B;
+$header-border-color: #18181B;
+
+
 $text-light: #ffffff;
-$text-muted: #aaaaaa;
-$danger-color: #e91916;
+$text-muted: #aaa;
 
 
-$border-radius: 0.5rem;
+$border-light: #5e5e60;
+
+
+
 $padding-base: 1rem;
 
 
-$font-base: 'Inter', sans-serif;
+$font-base: 1rem;
+$font-small: 0.875rem;
+$font-smaller: 0.75rem;
+$font-large: 1.25rem;
+

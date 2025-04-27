@@ -25,7 +25,6 @@ onMounted(async () => {
   domain.value = window.location.hostname
   const details = await new TwitchService().getStreamDetails(route.params.id as string)
   if (details?.user_login) {
-    console.log(' Detalles:', details)
     videoDetails.value = details
   } else {
     console.error('No se encontraron detalles del stream')
@@ -63,7 +62,7 @@ const toggleSubscribe = () => {
               class="avatar"
               alt="Streamer avatar"
             />
-            <span class="live-tag">VIVIR</span>
+            <span class="live-tag">LIVE</span>
           </div>
 
           <div class="stream-meta">
@@ -84,9 +83,9 @@ const toggleSubscribe = () => {
             </div>
 
             <div class="stream-tags">
-              <span v-for="tag in videoDetails.tags" :key="tag" class="tag">
-                {{ tag }}
-              </span>
+              <span v-for="tag in videoDetails.tags" :key="tag" class="tag">{{
+                tag
+              }}</span>
             </div>
           </div>
 
@@ -115,7 +114,6 @@ const toggleSubscribe = () => {
               <span class="icon red-icon">
                 <User :size="16" /> {{ formatNumber(videoDetails.viewer_count) }}
               </span>
-
               <span class="icon"><Clock3 :size="16" /> 3:23:05</span>
               <span class="icon"><ArrowUpRightFromSquare :size="16" /></span>
               <span class="icon"><MoreVertical :size="16" /></span>
@@ -126,8 +124,7 @@ const toggleSubscribe = () => {
         <h2 class="about-heading">Acerca de {{ videoDetails.user_name }}</h2>
         <div class="about">
           <p class="followers">
-            {{ formatNumber(videoDetails.followers) }}
-            <span> followers</span>
+            {{ formatNumber(videoDetails.followers) }} <span>followers</span>
           </p>
           <p class="description">
             {{ videoDetails.description || 'Sin descripción disponible.' }}
@@ -160,20 +157,21 @@ const toggleSubscribe = () => {
 
 <style scoped lang="scss">
 .stream-page {
-  background: #0e0e10;
-  color: #fff;
-  padding: 1rem 1rem;
+  background: $background-dark;
+  color: $text-light;
   gap: 0.5rem;
 }
 
 .stream-layout {
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
 }
 
 @media (min-width: 64em) {
   .stream-layout {
     flex-direction: row;
+    gap: 0.5rem;
   }
 }
 
@@ -204,6 +202,7 @@ const toggleSubscribe = () => {
   height: 3.125rem;
   flex-shrink: 0;
 }
+
 .avatar {
   width: 100%;
   height: 100%;
@@ -211,17 +210,18 @@ const toggleSubscribe = () => {
   object-fit: cover;
   background: #333;
 }
+
 .live-tag {
   position: absolute;
   bottom: -0.375rem;
   left: 50%;
   transform: translateX(-50%);
-  background: #e91916;
+  background: $danger-color;
   padding: 0.2rem 0.6rem;
   border-radius: 0.375rem;
   font-size: 0.65rem;
   font-weight: bold;
-  color: white;
+  color: $text-light;
   z-index: 1;
 }
 
@@ -231,29 +231,34 @@ const toggleSubscribe = () => {
   flex-direction: column;
   gap: 0.1rem;
 }
+
 .stream-name {
   font-size: 1.2rem;
   font-weight: bold;
 }
+
 .stream-title {
   font-size: 0.95rem;
-  color: #ccc;
+  color: $text-muted;
 }
+
 .stream-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
   margin-top: 0.4rem;
 }
+
 .category {
-  color: #1e61cc;
+  color: $primary-color;
 }
+
 .tag {
-  background: #2c2c2c;
+  background: $background-light;
   padding: 0.2rem 0.5rem;
   border-radius: 1rem;
   font-size: 0.75rem;
-  color: #eee;
+  color: $text-light;
 }
 
 .stream-actions {
@@ -263,12 +268,14 @@ const toggleSubscribe = () => {
   align-items: flex-end;
   min-width: 12rem;
 }
+
 .buttons {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
   justify-content: center;
 }
+
 .btn {
   padding: 0.4rem 1rem;
   border-radius: 0.375rem;
@@ -280,14 +287,17 @@ const toggleSubscribe = () => {
   align-items: center;
   gap: 0.4rem;
 }
+
 .follow {
-  background: #1e61cc;
-  color: white;
+  background: $primary-color;
+  color: $text-light;
 }
+
 .subscribe {
-  background: #2d2d2d;
-  color: white;
+  background: $background-light;
+  color: $text-light;
 }
+
 .icons {
   display: flex;
   flex-wrap: wrap;
@@ -295,14 +305,16 @@ const toggleSubscribe = () => {
   font-size: 0.85rem;
   align-items: center;
 }
+
 .icon {
   display: flex;
   align-items: center;
   gap: 0.3rem;
-  color: #ccc;
+  color: $text-muted;
 }
+
 .red-icon {
-  color: #e91916;
+  color: $danger-color;
   font-weight: bold;
 }
 
@@ -311,44 +323,51 @@ const toggleSubscribe = () => {
   font-weight: bold;
   margin: 1rem 0 0.5rem;
 }
+
 .about {
-  background: #1e1e1e;
+  background: $background-light;
   padding: 1.5rem;
   border-radius: 0.625rem;
 }
+
 .about-divider {
   border: none;
-  border-top: 1px solid #ffffff33;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
   margin: 1rem 0;
 }
+
 .followers {
   font-weight: bold;
   font-size: 0.95rem;
 }
+
 .description {
   font-size: 0.9rem;
-  color: #ccc;
+  color: $text-muted;
   margin: 0.8rem 0;
 }
+
 .socials {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   margin-top: 1rem;
 }
+
 .socials .icon {
   cursor: pointer;
-  color: #ccc;
+  color: $text-muted;
   transition: 0.2s ease;
 }
+
 .socials .icon:hover {
-  color: white;
+  color: $text-light;
 }
 
 .chat-section {
   flex: 1.2;
   min-height: 25rem;
-  background: #18181b;
+  background: $background-dark;
   border-radius: 0.5rem;
   overflow: hidden;
   display: flex;
@@ -363,17 +382,13 @@ const toggleSubscribe = () => {
   border: none;
 }
 
-@media (max-width: 64em) {
-  .chat-section {
-    margin-top: 1rem;
-  }
-}
 .verified-icon {
   width: 1rem;
   height: 1rem;
   margin-left: 0.4rem;
   vertical-align: middle;
 }
+
 @media (max-width: 768px) {
   .stream-header {
     flex-direction: column;
@@ -393,21 +408,16 @@ const toggleSubscribe = () => {
     width: 100%;
     align-items: center;
   }
-}
-@media (max-width: 768px) {
+
   .about {
     padding: 1rem;
     text-align: center;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    word-break: break-word;
   }
 
   .description {
     font-size: 0.85rem;
     margin: 0.5rem 0;
     max-width: 100%;
-    word-break: break-word;
   }
 }
 </style>

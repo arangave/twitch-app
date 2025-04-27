@@ -66,6 +66,7 @@ const featured = [
     </section>
   </section>
 </template>
+
 <style scoped lang="scss">
 .categories-wrapper {
   max-width: 100%;
@@ -85,9 +86,10 @@ const featured = [
   font-size: 1.25rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
-  color: #fff;
+  color: $text-light;
+
   &--blue {
-    color: #1e61cc;
+    color: $primary-color;
     font-weight: 600;
   }
 }
@@ -115,7 +117,7 @@ const featured = [
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  background: #0e0e10;
+  background: $background-dark;
   border-radius: 0.5rem;
   overflow: hidden;
   transition:
@@ -123,7 +125,7 @@ const featured = [
     transform 0.3s;
 
   &:hover {
-    box-shadow: 0 0 0.625rem 0.125rem #1e61cc;
+    box-shadow: 0 0 0.625rem 0.125rem $primary-color;
     transform: translateY(-0.125rem);
   }
 
@@ -131,7 +133,7 @@ const featured = [
     width: 100%;
     height: auto;
     object-fit: cover;
-    border-bottom: 0.0625rem solid #0e0e10;
+    border-bottom: 0.0625rem solid $background-dark;
   }
 
   &__info {
@@ -141,7 +143,7 @@ const featured = [
   &__name {
     font-weight: 600;
     font-size: 0.9rem;
-    color: #fff;
+    color: $text-light;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -149,15 +151,15 @@ const featured = [
   }
 
   &__viewers {
-    color: #aaa;
+    color: $text-muted;
     font-size: 0.8rem;
     margin-top: 0;
   }
 
   &__tag {
-    color: #eee;
+    color: $text-light;
     font-size: 0.75rem;
-    background: #2c2c2c;
+    background: $background-button;
     padding: 0.25rem 0.5rem;
     border-radius: 1rem;
     margin-top: 0.5rem;
@@ -181,7 +183,7 @@ const featured = [
     justify-content: center;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 48rem) {
     grid-template-columns: none;
     display: flex;
     flex-wrap: wrap;
@@ -194,9 +196,9 @@ const featured = [
   width: 100%;
   max-width: 16rem;
   height: 3.3125rem;
-  background: #1e61cc;
+  background: $primary-color;
   border-radius: 0.375rem;
-  color: white;
+  color: $text-light;
   font-weight: 500;
   display: flex;
   align-items: center;
@@ -220,8 +222,8 @@ const featured = [
   }
 
   &:hover {
-    background: #1d3b77;
-    transform: translateY(-2px);
+    background: darken($primary-color, 20%);
+    transform: translateY(-0.125rem);
   }
 
   @include respond('mobile') {

@@ -23,15 +23,15 @@ const thumbnail = computed(() =>
   flex-direction: column;
   border-radius: 0.5rem;
   overflow: hidden;
-  background-color: #18181b;
-  border: 0.0625rem solid #2c2c2c;
+  background-color: $background-dark;
+  border: 0.0625rem solid $border-light;
 
   &__thumbnail {
     width: 100%;
-    height: 11.25rem;
+    height: 11rem;
     object-fit: cover;
     display: block;
-    background-color: #18181b;
+    background-color: $background-dark;
   }
 
   &__info {
@@ -44,13 +44,13 @@ const thumbnail = computed(() =>
   &__title {
     font-weight: 600;
     font-size: 1.1rem;
-    color: #ffffff;
+    color: $text-light;
   }
 
   &__game,
   &__viewers {
     font-size: 0.875rem;
-    color: #adadb8;
+    color: $text-muted;
   }
 }
 </style>
