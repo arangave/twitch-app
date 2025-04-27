@@ -1,6 +1,18 @@
+@use './_variables' as *;
+@use './_mixins' as *;
 
-@forward '_variables';
-@forward '_mixins';
+
+
+body {
+  background-color: $background-dark;
+  color: $text-light;
+  font-family: $font-base;
+}
+
+.container {
+  @include flex-center;
+  padding: $padding-base;
+}
 
 
 

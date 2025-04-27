@@ -4,7 +4,10 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 import { resolve } from 'path'
 
 export default defineNuxtConfig({
-  css: ['~/assets/styles/resets.css'],
+  css: [
+    '~/assets/styles/resets.css', // tu reset CSS global
+    '~/assets/styles/main.scss', // tu SCSS principal
+  ],
 
   modules: [
     '@nuxt/eslint',
@@ -34,7 +37,10 @@ export default defineNuxtConfig({
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: '@use "~/assets/styles/main.scss";',
+          additionalData: `
+            @use "~/assets/styles/_variables.scss" as *;
+            @use "~/assets/styles/_mixins.scss" as *;
+          `,
         },
       },
     },
