@@ -14,6 +14,7 @@ onMounted(async () => {
 
 <template>
   <LiveChannels :streams="streams" />
+  <LiveChannels :streams="streams" />
   <Categories />
   <LiveChannels :streams="streams" />
   <LiveChannels :streams="streams" />
