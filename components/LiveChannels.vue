@@ -142,8 +142,8 @@ onMounted(() => {
   &:hover { box-shadow: 0 0 0.625rem 0.125rem $primary-color; transform: translateY(-0.125rem); }
   &__preview-wrapper { width: 100%; aspect-ratio: 16/9; background: #000; }
   &__iframe, &__preview { width: 100%; height: 100%; object-fit: cover; display: block; }
-  &__info { display: flex; padding: 0.5rem 0.75rem; gap: 0.5rem; }
-  &__avatar { width: 2rem; height: 2rem; border-radius: 50%; object-fit: cover; margin-top: 0.5rem; }
+  &__info { display: flex; padding: 0.5rem 0.25rem; gap: 0.5rem; }
+  &__avatar { width: 2.5rem; height: 2.5rem; border-radius: 50%; object-fit: cover; margin-top: 0.5rem; }
   &__details { flex: 1; display: flex; flex-direction: column; gap: 0.3rem; }
   &__title { font-weight: 600; font-size: 0.9rem; color: $text-light; line-height: 1.2; }
   &__user { margin-top: 0.2rem; color: $text-muted; font-size: 0.8rem; display: flex; align-items: center; gap: 0.4rem; }
