@@ -10,25 +10,20 @@ export class TwitchService {
     }
   }
 
+  private async fetchAPI(endpoint: string) {
+    const res = await fetch(`https://api.twitch.tv/helix/${endpoint}`, { headers: this.headers })
+    if (!res.ok) throw new Error(`Error en la petición a ${endpoint}`)
+    return res.json()
+  }
+
   async getStreams(limit = 50) {
-    const res = await fetch('https://api.twitch.tv/helix/streams?first=100', {
-      headers: this.headers,
-    })
-    if (!res.ok) throw new Error('Error al obtener streams en vivo')
-    const data = await res.json()
-    return data.data
-      .filter((s: any) => s.language === 'es')
-      .sort((a: any, b: any) => b.viewer_count - a.viewer_count)
-      .slice(0, limit)
+    const data = (await this.fetchAPI('streams?first=100')).data
+    return data.filter((s: any) => s.language === 'es').sort((a: any, b: any) => b.viewer_count - a.viewer_count).slice(0, limit)
   }
 
   async getRecommendedChannels(limit = 10) {
-    const res = await fetch(`https://api.twitch.tv/helix/streams?first=${limit}`, {
-      headers: this.headers,
-    })
-    if (!res.ok) throw new Error('Error al obtener canales recomendados')
-    const data = await res.json()
-    return data.data.map((c: any) => ({
+    const data = (await this.fetchAPI(`streams?first=${limit}`)).data
+    return data.map((c: any) => ({
       ...c,
       user_login: c.user_login || c.user_name?.toLowerCase() || '',
       is_verified: this.verifiedUsers.includes((c.user_name || '').toLowerCase()),
@@ -36,22 +31,11 @@ export class TwitchService {
   }
 
   async getTopCategoriesWithViewers(limit = 20) {
-    const gamesRes = await fetch(`https://api.twitch.tv/helix/games/top?first=${limit}`, {
-      headers: this.headers,
-    })
-    if (!gamesRes.ok) throw new Error('Error al obtener categorías')
-    const games = (await gamesRes.json()).data
-
-    const streamsRes = await fetch('https://api.twitch.tv/helix/streams?first=100', {
-      headers: this.headers,
-    })
-    if (!streamsRes.ok) throw new Error('Error al obtener streams')
-    const streams = (await streamsRes.json()).data
+    const games = (await this.fetchAPI(`games/top?first=${limit}`)).data
+    const streams = (await this.fetchAPI('streams?first=100')).data
 
     const viewers: Record<string, number> = {}
-    streams.forEach(
-      (s: any) => (viewers[s.game_id] = (viewers[s.game_id] || 0) + s.viewer_count),
-    )
+    streams.forEach((s: any) => (viewers[s.game_id] = (viewers[s.game_id] || 0) + s.viewer_count))
 
     return games.map((g: any) => {
       const name = g.name.toLowerCase()
@@ -73,38 +57,16 @@ export class TwitchService {
 
   async getStreamDetails(userLogin: string) {
     try {
-      const userRes = await fetch(
-        `https://api.twitch.tv/helix/users?login=${userLogin}`,
-        { headers: this.headers },
-      )
-      const user = (await userRes.json()).data?.[0]
+      const user = (await this.fetchAPI(`users?login=${userLogin}`)).data?.[0]
       if (!user) throw new Error('Usuario no encontrado')
 
-      const [streamRes, channelRes, followersRes] = await Promise.all([
-        fetch(`https://api.twitch.tv/helix/streams?user_id=${user.id}`, {
-          headers: this.headers,
-        }),
-        fetch(`https://api.twitch.tv/helix/channels?broadcaster_id=${user.id}`, {
-          headers: this.headers,
-        }),
-        fetch(
-          `https://api.twitch.tv/helix/channels/followers?broadcaster_id=${user.id}`,
-          { headers: this.headers },
-        ),
+      const [stream, channel, followers] = await Promise.all([
+        this.fetchAPI(`streams?user_id=${user.id}`).then(r => r.data?.[0] || {}),
+        this.fetchAPI(`channels?broadcaster_id=${user.id}`).then(r => r.data?.[0]?.tags || []),
+        this.fetchAPI(`channels/followers?broadcaster_id=${user.id}`).then(r => r.total || 0),
       ])
 
-      const stream = (await streamRes.json()).data?.[0] || {}
-      const tags = (await channelRes.json()).data?.[0]?.tags || []
-      const followers = (await followersRes.json()).total || 0
-
-      return {
-        ...user,
-        ...stream,
-        user_login: user.login,
-        is_verified: this.verifiedUsers.includes(user.login.toLowerCase()),
-        tags,
-        followers,
-      }
+      return { ...user, ...stream, user_login: user.login, is_verified: this.verifiedUsers.includes(user.login.toLowerCase()), tags: channel, followers }
     } catch (error) {
       console.error('Error al obtener detalles del canal:', error)
       return null

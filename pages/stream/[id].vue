@@ -83,120 +83,63 @@ onMounted(async () => {
 
 
 <style scoped lang="scss">
-.stream-page {
-  background: $background-dark;
-  color: $text-light;
-  margin: 0; padding: 0; width: 100%; box-sizing: border-box; min-height: 100vh;
-}
-
-.stream-layout {
-  display: flex; flex-direction: row; gap: 0.5rem; width: 100%; max-width: 120rem; margin: 0 auto; padding: 0;
+.stream-page { background: $background-dark; color: $text-light; margin: 0; padding: 0; width: 100%; box-sizing: border-box; min-height: 100vh; }
+.stream-layout { display: flex; flex-direction: row; gap: 0.5rem; width: 100%; max-width: 120rem; margin: 0 auto; padding: 0;
   @media (max-width: 48rem) { flex-direction: column; align-items: center; gap: 1rem; }
 }
-
-.main-content {
-  flex: 3; display: flex; flex-direction: column; gap: 1.5rem; margin: 0; padding: 0; width: 100%;
-}
-
-.video-section {
-  background: #000; border-radius: 0.5rem; overflow: hidden; height: 28rem; width: 100%;
+.main-content { flex: 3; display: flex; flex-direction: column; gap: 1.5rem; margin: 0; padding: 0; width: 100%; }
+.video-section { background: #000; border-radius: 0.5rem; overflow: hidden; height: 28rem; width: 100%;
   @media (max-width: 48rem) { height: auto; aspect-ratio: 16/9; }
 }
-
-.stream-header {
-  display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start; width: 100%;
+.stream-header { display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start; width: 100%;
   @media (max-width: 48rem) { flex-direction: column; align-items: center; text-align: center; }
 }
-
-.avatar-wrapper {
-  position: relative; width: 3.125rem; height: 3.125rem; flex-shrink: 0;
-}
-
-.avatar {
-  width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: #333;
-}
-
-.live-tag {
-  position: absolute; bottom: -0.375rem; left: 50%; transform: translateX(-50%); background: $danger-color;
-  padding: 0.2rem 0.6rem; border-radius: 0.375rem; font-size: $font-smaller; font-weight: bold; color: $text-light;
-}
-
-.stream-meta {
-  flex: 1; display: flex; flex-direction: column; gap: 0.1rem;
+.avatar-wrapper { position: relative; width: 3.125rem; height: 3.125rem; flex-shrink: 0; }
+.avatar { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: #333; }
+.live-tag { position: absolute; bottom: -0.375rem; left: 50%; transform: translateX(-50%); background: $danger-color; padding: 0.2rem 0.6rem; border-radius: 0.375rem; font-size: $font-smaller; font-weight: bold; color: $text-light; }
+.stream-meta { flex: 1; display: flex; flex-direction: column; gap: 0.1rem;
   @media (max-width: 48rem) { align-items: center; }
 }
-
 .stream-name { font-size: $font-large; font-weight: bold; }
 .stream-title { font-size: $font-small; color: $text-muted; }
-
-.stream-tags {
-  display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.4rem;
+.stream-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.4rem;
   @media (max-width: 48rem) { justify-content: center; }
 }
-
 .category { color: $primary-color; }
-
-.tag {
-  background: $background-light; padding: 0.2rem 0.5rem; border-radius: 1rem; font-size: $font-smaller; color: $text-light;
-}
-
-.stream-actions {
-  display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-end; min-width: 12rem;
+.tag { background: $background-light; padding: 0.2rem 0.5rem; border-radius: 1rem; font-size: $font-smaller; color: $text-light; }
+.stream-actions { display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-end; min-width: 12rem;
   @media (max-width: 48rem) { align-items: center; width: 100%; }
 }
-
 .buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
-
 .btn, .follow { @include button-style($primary-color, $text-light); }
 .subscribe { @include button-style($background-light, $text-light); }
-
-.icons {
-  display: flex; flex-wrap: wrap; gap: 0.7rem; font-size: 0.85rem; align-items: center;
+.icons { display: flex; flex-wrap: wrap; gap: 0.7rem; font-size: 0.85rem; align-items: center;
   @media (max-width: 48rem) { justify-content: center; }
 }
-
 .icon { display: flex; align-items: center; gap: 0.3rem; color: $text-muted; }
-
 .red-icon { color: $danger-color; font-weight: bold; }
-
-.about-heading {
-  font-size: 1.1rem; font-weight: bold; margin: 1rem 0 0.5rem;
+.about-heading { font-size: 1.1rem; font-weight: bold; margin: 1rem 0 0.5rem;
   @media (max-width: 48rem) { text-align: center; }
 }
-
 .about { background: $background-light; padding: 1.5rem; border-radius: 0.625rem; width: 100%; }
-
-.about-divider {
-  border: none; border-top: 1px solid rgba(255, 255, 255, 0.2); margin: 1rem 0;
-}
-
-.followers, .description {
-  font-weight: bold; font-size: 0.95rem;
+.about-divider { border: none; border-top: 1px solid rgba(255, 255, 255, 0.2); margin: 1rem 0; }
+.followers, .description { font-weight: bold; font-size: 0.95rem;
   @media (max-width: 48rem) { text-align: center; }
 }
-
-.description {
-  font-size: $font-small; color: $text-muted; margin: 0.8rem 0; text-align: left;
+.description { font-size: $font-small; color: $text-muted; margin: 0.8rem 0; text-align: left;
   @media (max-width: 48rem) { text-align: center; }
 }
-
-.socials {
-  display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem; justify-content: flex-start;
+.socials { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem; justify-content: flex-start;
   @media (max-width: 48rem) { justify-content: center; }
 }
-
-.socials .icon {
-  cursor: pointer; color: $text-muted; transition: 0.2s ease;
+.socials .icon { cursor: pointer; color: $text-muted; transition: 0.2s ease;
   &:hover { color: $text-light; }
 }
-
-.chat-section {
-  flex: 1.2; min-width: 20rem; max-width: 25rem; background: $background-dark; border-radius: 0.5rem;
+.chat-section { flex: 1.2; min-width: 20rem; max-width: 25rem; background: $background-dark; border-radius: 0.5rem;
   overflow: hidden; display: flex; flex-direction: column; width: 100%; min-height: 25rem;
   @media (max-width: 48rem) { min-width: 100%; max-width: 100%; min-height: 35rem; }
 }
-
 .chat-section iframe { flex: 1; width: 100%; height: 100%; border: none; }
-
 .verified-icon { width: 1rem; height: 1rem; margin-left: 0.4rem; vertical-align: middle; }
 </style>
+

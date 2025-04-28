@@ -68,7 +68,7 @@ const featured = [
 </template>
 
 <style scoped lang="scss">
-.categories-wrapper { max-width: 100%; margin: 0 auto; padding: 0 1rem; overflow: hidden; }
+.categories-wrapper { max-width: 100%; margin: 0 auto 2rem auto; padding: 0 1rem; overflow: hidden; }
 .categories-section { margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
 .categories-title { font-size: 1.25rem; font-weight: 500; margin-bottom: 0.5rem; color: $text-light;
   &--blue { color: $primary-color; font-weight: 600; }
