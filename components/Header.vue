@@ -89,7 +89,7 @@ onMounted(async () => {
   </div>
 </template>
 <style scoped lang="scss">
-@use '~/assets/styles/_variables' as *;
+
 
 .header { width: 100%; @include flex-center; justify-content: space-between; @include header-background; padding: 0.35rem; flex-wrap: nowrap;
   &__left, &__right, &__menu-icons { @include flex-center; gap: 0.9rem; }
