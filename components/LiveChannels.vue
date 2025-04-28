@@ -152,7 +152,7 @@ onMounted(() => {
     span { background: $background-button; padding: 0.2rem 0.5rem; border-radius: 1rem; font-size: 0.75rem; color: $text-muted; }
   }
 }
-.show-more-wrapper { display: flex; align-items: center; gap: 1rem; margin-top: 2rem; cursor: pointer; }
+.show-more-wrapper { display: flex; align-items: center; gap: 1rem; margin-top: 2rem;margin-bottom: 2rem; cursor: pointer; }
 .divider { flex: 1; height: 0.05rem; background: $border-light; border: none; }
 .show-more { display: flex; align-items: center; gap: 0.4rem; font-size: 0.95rem; font-weight: 600; color: $primary-color; white-space: nowrap;
   img { width: 0.75rem; height: 0.75rem; transition: transform 0.3s ease; filter: brightness(0) invert(1); }
