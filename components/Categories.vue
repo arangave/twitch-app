@@ -90,7 +90,7 @@ const featured = [
   &__tag { color: $text-light; font-size: 0.75rem; background: $background-button; padding: 0.25rem 0.5rem; border-radius: 1rem; margin-top: 0.5rem; display: inline-block; text-align: center; }
 }
 .featured-categories {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 1.5rem; margin: 1rem 1rem; width: 100%; padding: 0; justify-content: center;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 1.5rem; margin: 1rem 1rem 1rem 0rem; width: 100%; padding: 0; justify-content: center;
   &.sidebar-open { grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: 1rem; justify-content: center; }
   @media (max-width: 48rem) { grid-template-columns: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
 }
