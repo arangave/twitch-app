@@ -105,7 +105,7 @@ onMounted(async () => {
 .stream-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.4rem;
   @media (max-width: 48rem) { justify-content: center; }
 }
-.category { color: $primary-color; }
+.category { color: $primary-color; font-weight: bold; width: 100%; }
 .tag { background: $background-light; padding: 0.2rem 0.5rem; border-radius: 1rem; font-size: $font-smaller; color: $text-light; }
 .stream-actions { display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-end; min-width: 12rem;
   @media (max-width: 48rem) { align-items: center; width: 100%; }
@@ -142,4 +142,5 @@ onMounted(async () => {
 .chat-section iframe { flex: 1; width: 100%; height: 100%; border: none; }
 .verified-icon { width: 1rem; height: 1rem; margin-left: 0.4rem; vertical-align: middle; }
 </style>
+
 
