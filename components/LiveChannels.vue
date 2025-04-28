@@ -125,7 +125,6 @@ onMounted(() => {
 
 <style scoped lang="scss">
 
-
 .live-section { display: flex; flex-direction: column; gap: 0.625rem; }
 .live-title { font-size: 1.25rem; font-weight: 500; margin-bottom: 0.5rem; color: $text-light;
   &--blue { color: $primary-color; font-weight: 600; }
