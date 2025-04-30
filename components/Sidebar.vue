@@ -74,7 +74,8 @@ onMounted(async () => {
   }
   &__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-top: 1rem; }
   &__title { font-size: 0.85rem; font-weight: 600; color: $text-muted; margin: 0; }
-  &__collapse { width: 1.2rem; height: 1.2rem; cursor: pointer; opacity: 0.7; filter: brightness(0) invert(1); 
+  &__collapse { width: 1.2rem; height: 1.2rem; cursor: pointer; opacity: 0.7; filter: brightness(0) invert(1); &:hover {
+    width:1.5rem;}
     transition: filter 0.2s; margin-left: 1rem; &.rotated { transform: rotate(180deg); transition: transform 0.3s; }
   }
   &__list { list-style: none; padding: 0; margin: 0; }
