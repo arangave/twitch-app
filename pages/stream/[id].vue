@@ -53,8 +53,8 @@ onMounted(async () => {
               </button>
             </div>
             <div class="icons">
-              <span class="icon red-icon"><User :size="16" /> {{ formatNumber(videoDetails.viewer_count) }}</span>
-              <span class="icon"><Clock3 :size="16" /> 3:23:05</span>
+              <span class="icons red-icon"><User :size="16" /> {{ formatNumber(videoDetails.viewer_count) }}</span>
+              <span class="icons"><Clock3 :size="16" /> 3:23:05</span>
               <span class="icon"><ArrowUpRightFromSquare :size="16" /></span>
               <span class="icon"><MoreVertical :size="16" /></span>
             </div>
@@ -66,10 +66,18 @@ onMounted(async () => {
           <p class="description">{{ videoDetails.description || 'Sin descripción disponible.' }}</p>
           <hr class="about-divider" />
           <div class="socials">
-            <a href="#" class="icon"><Youtube :size="18" /></a>
-            <a href="#" class="icon"><Instagram :size="18" /></a>
-            <a href="#" class="icon"><Twitter :size="18" /></a>
-            <a href="#" class="icon"><TiktokIcon :size="18" /></a>
+            <a href="#" class="icon">
+              <img :src="`/iconos/youtube.svg`" alt="YouTube" class="social-icon" /><span class="label">YouTube</span>
+            </a>
+            <a href="#" class="icon">
+              <img :src="`/iconos/instagram.svg`" alt="Instagram" class="social-icon" /><span class="label">Instagram</span>
+            </a>
+            <a href="#" class="icon">
+              <img :src="`/iconos/twitter.svg`" alt="Twitter" class="social-icon" /><span class="label">Twitter</span>
+            </a>
+            <a href="#" class="icon">
+              <img :src="`/iconos/tiktok.svg`" alt="TikTok" class="social-icon" /><span class="label">TikTok</span>
+            </a>
           </div>
         </div>
       </div>
@@ -80,14 +88,12 @@ onMounted(async () => {
   </div>
   <div v-else><p style="color: white">Cargando video...</p></div>
 </template>
-
-
 <style scoped lang="scss">
-.stream-page { background: $background-dark; color: $text-light; margin: 0; padding: 0; width: 100%; box-sizing: border-box; min-height: 100vh; }
-.stream-layout { display: flex; flex-direction: row; gap: 0.5rem; width: 100%; max-width: 120rem; margin: 0 auto; padding: 0;
+.stream-page { background: $background-dark; color: $text-light; width: 100%; min-height: 100vh; box-sizing: border-box; }
+.stream-layout { display: flex; gap: 0.5rem; max-width: 120rem; margin: auto; padding: 0;
   @media (max-width: 48rem) { flex-direction: column; align-items: center; gap: 1rem; }
 }
-.main-content { flex: 3; display: flex; flex-direction: column; gap: 1.5rem; margin: 0; padding: 0; width: 100%; }
+.main-content { flex: 3; display: flex; flex-direction: column; gap: 1.5rem; width: 100%; }
 .video-section { background: #000; border-radius: 0.5rem; overflow: hidden; height: 28rem; width: 100%;
   @media (max-width: 48rem) { height: auto; aspect-ratio: 16/9; }
 }
@@ -116,7 +122,12 @@ onMounted(async () => {
 .icons { display: flex; flex-wrap: wrap; gap: 0.7rem; font-size: 0.85rem; align-items: center;
   @media (max-width: 48rem) { justify-content: center; }
 }
-.icon { display: flex; align-items: center; gap: 0.3rem; color: $text-muted; }
+.icon { display: flex; align-items: center; gap: 0.3rem; color: $text-muted; text-decoration: none; padding: 0.4rem;border-radius: 0.75rem;
+  transition:background 0.2s ease;
+  &:hover {
+    background: $primary-color;
+    color: $text-light;
+  }}
 .red-icon { color: $danger-color; font-weight: bold; }
 .about-heading { font-size: 1.1rem; font-weight: bold; margin: 1rem 0 0.5rem;
   @media (max-width: 48rem) { text-align: center; }
@@ -131,12 +142,14 @@ onMounted(async () => {
 }
 .socials { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem; justify-content: flex-start;
   @media (max-width: 48rem) { justify-content: center; }
+  .icon { cursor: pointer; color: $text-muted; transition: 0.2s; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;
+    &:hover { color: $text-light; }
+    .label {
+      @media (max-width: 48rem) { display: none; }
+    }
+  }
 }
-.socials .icon { cursor: pointer; color: $text-muted; transition: 0.2s ease;
-  &:hover { color: $text-light; }
-}
-.chat-section { flex: 1.2; min-width: 20rem; max-width: 25rem; background: $background-dark; border-radius: 0.5rem;
-  overflow: hidden; display: flex; flex-direction: column; width: 100%; min-height: 25rem;
+.chat-section { flex: 1.2; min-width: 20rem; max-width: 25rem; background: $background-dark; border-radius: 0.5rem; overflow: hidden; display: flex; flex-direction: column; width: 100%; min-height: 25rem;
   @media (max-width: 48rem) { min-width: 100%; max-width: 100%; min-height: 35rem; }
 }
 .chat-section iframe { flex: 1; width: 100%; height: 100%; border: none; }
